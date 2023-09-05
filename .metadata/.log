@@ -472,3 +472,21 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:39:52.009
 !MESSAGE Classpath changed for project: pro19_2
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:52:11.057
+!MESSAGE Classpath changed for project: pro20
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:52:11.128
+!MESSAGE Classpath changed for project: pro20
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:52:25.171
+!MESSAGE Classpath changed for project: bookShop01
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:52:25.172
+!MESSAGE Boot project REMOVED: bookShop01
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-09-05 15:52:28.289
+!MESSAGE Classpath changed for project: pro18
+
+!ENTRY org.eclipse.equinox.security 1 0 2023-09-05 15:56:33.317
+!MESSAGE New keyring password generated. 
