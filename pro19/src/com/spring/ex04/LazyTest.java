@@ -19,7 +19,7 @@ public class LazyTest {
 		
 		//원래, 개발자가 임의로 인스턴스화해서 사용한 예. 
 		First f1 = new First();
-		
+		//홈워크 저장
 	}
 }
 
