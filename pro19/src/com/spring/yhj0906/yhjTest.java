@@ -1,4 +1,4 @@
-package com.spring.yhj2309;
+package com.spring.yhj0906;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
