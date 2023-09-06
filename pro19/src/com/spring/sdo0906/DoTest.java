@@ -1,4 +1,4 @@
-package com.spring.do0906;
+package com.spring.sdo0906;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
