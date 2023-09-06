@@ -27,7 +27,7 @@ public class PersonTest {
 		//
 		person.sayHello();
 		
-		//브렌치 입니다.
+		//브랜치1 입니다.
 		
 		
 		
