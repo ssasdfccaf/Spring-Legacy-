@@ -9,7 +9,7 @@ public class LJYTest {
 
 	// 메인 메서드에서, 
 	public static void main(String[] args) {
-System.out.println("깃 테스트중 이재영a1231 ");
+System.out.println("깃 테스트중 이재영 테스트 1 ");
 	
 	}
 
