@@ -26,9 +26,8 @@ public class PersonTest {
 		// 메인 메소드가 있는 클래스에서 -> 우클릭에서, 자바 로 단순 실행. 
 		//
 		person.sayHello();
-		
-		
-		//homework 브랜치 입니다.
+		// homework 브랜치입니다.
+
 		
 		//평상시, PersonServiceImpl
 		System.out.println("보통 일반적인 개발자들이 객체 인스턴스를 생성하는 경우.");
