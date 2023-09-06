@@ -1,4 +1,4 @@
-package com.spring.ex01;
+package com.spring.lsy0906;
 
 // 주기능 클래스. 
 public class Calculator {

@@ -1,4 +1,4 @@
-package com.spring.ex01;
+package com.spring.lsy0906;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
