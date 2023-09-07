@@ -5,12 +5,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CalcTest {
 	   public static void main(String[] args){
-		   // xml ÆÄÀÏ¿¡ ÀÖ´Â ºó(ÀÎ½ºÅÏ½º) proxyCal ¸¦ ºÒ·¯¿È
+		   // xml íŒŒì¼ì— ìˆëŠ” ë¹ˆ(ì¸ìŠ¤í„´ìŠ¤) proxyCal ë¥¼ ë¶ˆëŸ¬ì˜´
 	      ApplicationContext context=new ClassPathXmlApplicationContext("AOPTest.xml");
 	      Calculator cal=(Calculator)context.getBean("proxyCal");
 	      
-	      // ÁÖ±â´É, º¸Á¶±â´ÉÀ» ¹­¾î ³õÀº ÀÎ½ºÅÏ½º proxyCal ¸¦ ºÒ·¯¿Í, cal Àç ÇÒ´ç 
-	      // ±×¸®°í ½ÇÇà½Ã, ÁÖ±â´É µ¿ÀÛ Àü, ÈÄ¿¡ , º¸Á¶±â´ÉÀÎ ·Î±× ¾îµå¹ÙÀÌ½º°¡ ½ÇÇàÀÌ µÇ´Â ±¸Á¶.
+	      // ì£¼ê¸°ëŠ¥, ë³´ì¡°ê¸°ëŠ¥ì„ ë¬¶ì–´ ë†“ì€ ì¸ìŠ¤í„´ìŠ¤ proxyCal ë¥¼ ë¶ˆëŸ¬ì™€, cal ì¬ í• ë‹¹ 
+	      // ê·¸ë¦¬ê³  ì‹¤í–‰ì‹œ, ì£¼ê¸°ëŠ¥ ë™ì‘ ì „, í›„ì— , ë³´ì¡°ê¸°ëŠ¥ì¸ ë¡œê·¸ ì–´ë“œë°”ì´ìŠ¤ê°€ ì‹¤í–‰ì´ ë˜ëŠ” êµ¬ì¡°.
 	      cal.add(100,20);
 	      System.out.println();
 	      cal.subtract(100,20);

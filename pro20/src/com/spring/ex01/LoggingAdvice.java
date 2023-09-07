@@ -3,18 +3,18 @@ package com.spring.ex01;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-// º¸Á¶±â´É Å¬·¡½º , MethodInterceptor ÀÎÅÍÆäÀÌ½º ±¸Çö ÈÄ, Ãß»ó ¸Ş¼­µå ÀÇ¹«Àû ÀçÁ¤ÀÇ
+// ë³´ì¡°ê¸°ëŠ¥ í´ë˜ìŠ¤ , MethodInterceptor ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„ í›„, ì¶”ìƒ ë©”ì„œë“œ ì˜ë¬´ì  ì¬ì •ì˜
 public class LoggingAdvice implements MethodInterceptor {
-	// ÁÖ±â´ÉÀÌ 1) ½ÇÇà µÇ±â Àü, 2) ½ÇÇà µÇ±â ÈÄ, 3) ¿¹¿Ü¹ß»ı½Ã 
-	// ÀÌ invoke ¸Ş¼­µå°¡ ½ÇÇàÀÌµÊ. ±×·¸°Ô ¼³°èµÊ. 
+	// ì£¼ê¸°ëŠ¥ì´ 1) ì‹¤í–‰ ë˜ê¸° ì „, 2) ì‹¤í–‰ ë˜ê¸° í›„, 3) ì˜ˆì™¸ë°œìƒì‹œ 
+	// ì´ invoke ë©”ì„œë“œê°€ ì‹¤í–‰ì´ë¨. ê·¸ë ‡ê²Œ ì„¤ê³„ë¨. 
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		System.out.println("[¸Ş¼­µå È£Ãâ Àü : LogginAdvice");
-		System.out.println(invocation.getMethod() + "¸Ş¼­µå È£Ãâ Àü");
+		System.out.println("[ë©”ì„œë“œ í˜¸ì¶œ ì „ : LogginAdvice");
+		System.out.println(invocation.getMethod() + "ë©”ì„œë“œ í˜¸ì¶œ ì „");
 
 		Object object = invocation.proceed();
 
-		System.out.println("[¸Ş¼­µå È£Ãâ ÈÄ : loggingAdvice");
-		System.out.println(invocation.getMethod() + "¸Ş¼­µå È£Ãâ ÈÄ");
+		System.out.println("[ë©”ì„œë“œ í˜¸ì¶œ í›„ : loggingAdvice");
+		System.out.println(invocation.getMethod() + "ë©”ì„œë“œ í˜¸ì¶œ í›„");
 		return object;
 	}
 }
