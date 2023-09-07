@@ -33,16 +33,18 @@ SimpleUrlController simpleUrlController = new SimpleUrlController();
 실제로, 참고용 , 하나의 주소만을 설정해서, 들어오는 주소를 정하는 설정.
 나가는 주소, index.jsp 
 서버 재시작. -->
-<bean id="urlMapping"
+<!-- <bean id="urlMapping"
   class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
   <property  name="mappings">
     <props>
       <prop key="/test/index33.do">simpleUrlController</prop>
     </props>
   </property>  
-</bean>
+</bean> -->
 
- <!-- 
+  <!-- 뷰를 중개하는 담당자  -->
+  <!-- viewResolver -> 뷰 파일들의 공통 부모 경로와, 공통 확장자를 미리 정의 해두기 -->
+  <!-- 예 ) /test/index.jsp ->  index   --> 
  	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -51,6 +53,7 @@ SimpleUrlController simpleUrlController = new SimpleUrlController();
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+<!-- url 주소가 : /test/*.do , 이 부분에 대해서 다 처리하겠다(userController) 의미  -->
 	<bean id="userUrlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
@@ -60,6 +63,7 @@ SimpleUrlController simpleUrlController = new SimpleUrlController();
 		</property>
 	</bean>
 
+<!-- userController : -> /test/*.do 끝나는 url 주소에 대해서 모두 받아서 처리하겠다. -->
 	<bean id="userController" class="com.spring.ex02.UserController">
 		<property name="methodNameResolver">
 			<ref local="userMethodNameResolver" />
@@ -74,6 +78,6 @@ SimpleUrlController simpleUrlController = new SimpleUrlController();
 				<prop key="/test/memberInfo.do">memberInfo</prop> 
 			</props>
 		</property>
-	</bean> -->
+	</bean>
 
 </beans>

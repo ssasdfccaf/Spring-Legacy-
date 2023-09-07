@@ -20,8 +20,9 @@ isELIgnored="false" %>
       <td>비밀번호</td>
    </tr>
    <tr align="center">
-      <td>${userID}</td>
-      <td>${passwd}</td>
+   <!-- 서버에서 설정한 데이터를 , 뷰에서 가져와서 사용하는 예 -->
+      <td>${userID2}</td>
+      <td>${passwd2}</td>
    </tr>
 </table>
 </body>
