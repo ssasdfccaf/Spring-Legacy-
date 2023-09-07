@@ -33,7 +33,7 @@ public class UserController extends MultiActionController {
 		// passwd2 이름으로, 값 passwd=1234
 		mav.addObject("userID2", userID2);
 		mav.addObject("passwd2", passwd2);
-		mav.setViewName("result");
+		mav.setViewName("result"); /* 결과: 뷰+데이터 전달 */
 		return mav;
 	}
 	

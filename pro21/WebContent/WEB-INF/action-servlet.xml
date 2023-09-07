@@ -12,23 +12,24 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
  <!-- 현재 파일명 : action-servlet.xml 파일 -->
-<!--  <bean id="viewResolver" 부터 	</bean>
- -->
+<!--  <bean id="viewResolver" 부터 	</bean> -->
 <!-- 
-스프링 MVC 구조를 공부하기위한 , 간단한 구조의 스프링 MVC 버전. 
+스프링 MVC 구조를 공부하기위한 , 간단한 스프링 MVC 버전. 
 순서
-웹브라우저가 -> 주소: url : http://localhost:8080/pro21/test/index.do
+웹브라우저 주소 : url : http://localhost:8080/pro21/test/index.do
 
-web.xml 설정 파일에서  설정한 부분 
-1) action 서블릿이름을 가진 인스턴스는 서버가 켜지면 메모리 로드하자. 
-2) url 주소에서 *.do 는 주소는 전부, action 서블릿이 처리 하겠다라고 설정.
+web.xml 파일에서  설정한 부분 
+1) action 서블릿 이름을 가진 인스턴스는 서버가 켜지면 메모리 로드
+2) url 주소에서 설정: *.do 는 전부, action 서블릿이 처리 하겠다
 
-action-servlet.xml 파일에서 설정 여기.
+action-servlet.xml 파일에서 설정 
 일반적인 인스턴스 생성 방법 , 생성자를 이용해서 초기화. 
 SimpleUrlController simpleUrlController = new SimpleUrlController();
+
 첫번째 인스턴스 참조형 변수 이름 : simpleUrlController
-서버 시작시, 항상 메모리에 올라와 있어서, 사용하기 편하다.  -->
+서버 시작 시에 항상 메모리에 올라와 있어서, 사용하기 편하다.  -->
 <bean id="simpleUrlController" class="com.spring.ex01.SimpleUrlController"/>
+
 <!-- 두번째 인스턴스 : urlMapping
 실제로, 참고용 , 하나의 주소만을 설정해서, 들어오는 주소를 정하는 설정.
 나가는 주소, index.jsp 
@@ -74,7 +75,7 @@ SimpleUrlController simpleUrlController = new SimpleUrlController();
 		  class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
-				<prop key="/test/login.do">login</prop>
+				<prop key="/test/join.do">join</prop>
 				<prop key="/test/memberInfo.do">memberInfo</prop> 
 			</props>
 		</property>

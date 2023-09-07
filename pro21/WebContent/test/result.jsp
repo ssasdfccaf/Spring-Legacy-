@@ -13,6 +13,7 @@ isELIgnored="false" %>
   <title>결과창</title>
 </head>
 <body>
+
 <table border="1" width="50%" align="center" >
 
    <tr align="center">
@@ -27,3 +28,5 @@ isELIgnored="false" %>
 </table>
 </body>
 </html>
+
+ 
