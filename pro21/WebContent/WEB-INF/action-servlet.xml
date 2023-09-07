@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ <!-- 현재 파일명 : action-servlet.xml 파일 -->
+<!--  <bean id="viewResolver" 부터 	</bean>
+ -->
+<!-- 
+스프링 MVC 구조를 공부하기위한 , 간단한 구조의 스프링 MVC 버전. 
+순서
+웹브라우저가 -> 주소: url : http://localhost:8080/pro21/test/index.do
+
+web.xml 설정 파일에서  설정한 부분 
+1) action 서블릿이름을 가진 인스턴스는 서버가 켜지면 메모리 로드하자. 
+2) url 주소에서 *.do 는 주소는 전부, action 서블릿이 처리 하겠다라고 설정.
+
+action-servlet.xml 파일에서 설정 여기.
+일반적인 인스턴스 생성 방법 , 생성자를 이용해서 초기화. 
+SimpleUrlController simpleUrlController = new SimpleUrlController();
+첫번째 인스턴스 참조형 변수 이름 : simpleUrlController
+서버 시작시, 항상 메모리에 올라와 있어서, 사용하기 편하다.  -->
+<bean id="simpleUrlController" class="com.spring.ex01.SimpleUrlController"/>
+<!-- 두번째 인스턴스 : urlMapping
+실제로, 참고용 , 하나의 주소만을 설정해서, 들어오는 주소를 정하는 설정.
+나가는 주소, index.jsp 
+서버 재시작. -->
+<bean id="urlMapping"
+  class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+  <property  name="mappings">
+    <props>
+      <prop key="/test/index33.do">simpleUrlController</prop>
+    </props>
+  </property>  
+</bean>
+
+ <!-- 
+ 	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/test/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="userUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/test/*.do">userController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="userController" class="com.spring.ex02.UserController">
+		<property name="methodNameResolver">
+			<ref local="userMethodNameResolver" />
+		</property>
+	</bean>
+
+	<bean id="userMethodNameResolver"
+		  class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/test/login.do">login</prop>
+				<prop key="/test/memberInfo.do">memberInfo</prop> 
+			</props>
+		</property>
+	</bean> -->
+
+</beans>
