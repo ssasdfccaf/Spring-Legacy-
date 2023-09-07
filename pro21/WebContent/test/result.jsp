@@ -13,6 +13,7 @@ isELIgnored="false" %>
   <title>결과창</title>
 </head>
 <body>
+<h1>result.jsp 페이지입니다.</h1>
 <table border="1" width="50%" align="center" >
 
    <tr align="center">
