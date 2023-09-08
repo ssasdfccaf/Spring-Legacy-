@@ -3,6 +3,11 @@ package com.spring.ex01;
 import java.sql.Date;
 
 public class MemberVO {
+	// 디비서버에 데이터를 가져오거나, 
+	// 데이터를 입력을 하거나 했을 때, 
+	// 하나의 인스턴스에 , 내용을 담아서 전달하기 위한
+	// 용도의 인스턴스, 편의성을 위해서 사용함. 
+	
 	private String id;
 	private String pwd;
 	private String name;

@@ -3,6 +3,8 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+<!-- 패키지명, 폴더 위치 : mapper.member -->
 <mapper namespace="mapper.member">
 	<resultMap id="memResult" type="memberVO">
 		<result property="id" column="id" />
