@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/mem.do")
+// 현재, 이구조는 jsp 모델2 형식이니, 
+// 우리는 스프링 MVC 구조로 , 마이바티스와 연동해서 작업할 예정이니, 
+// 이구조는 참고만 해주세요.
 public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
