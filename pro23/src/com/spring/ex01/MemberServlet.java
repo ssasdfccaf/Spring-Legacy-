@@ -1,6 +1,7 @@
 package com.spring.ex01;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -30,8 +31,14 @@ public class MemberServlet extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		// 만약, 마이바티스라는 디비 프레임 워크를 사용을 안하게 되면, 
 		// 여기에, 1)디비에 연결하는 코드, 2) 디비를 불러오는 sql 3) 닫는 코드 
+//		List<MemberVO> membersList = dao.selectAllMemberList();
+		/* HashMap 타입 확인하기. */
+		// 타입 이 틀림 수정 -> 설정해서, 모델 클래스 설정. : 
+		// <typeAlias type="com.spring.ex01.MemberVO" alias="memberVO"/>
+//		List<HashMap<String, String>> membersList2 = dao.selectAllMemberList();
+		
+		//수정 된 부분. 
 		List<MemberVO> membersList = dao.selectAllMemberList();
-		//List<HashMap<String, String>> membersList = dao.selectAllMemberList();
 		request.setAttribute("membersList", membersList);
 		RequestDispatcher dispatch = request.getRequestDispatcher("test01/listMembers.jsp");
 		dispatch.forward(request, response);

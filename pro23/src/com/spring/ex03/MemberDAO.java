@@ -35,8 +35,13 @@ public class MemberDAO {
 	}
 
 	public MemberVO selectMemberById(String id){
+		// selectMemberById 의 메서드에 인자값으로, 
+		// 서블릿이라는 파일에서-> dao 라는 파일로 , 검색 키워드를 전달했다. 
 	      sqlMapper=getInstance();
 	SqlSession session=sqlMapper.openSession();
+	// 디비에, 검색 조건을 같이 전달함. 
+	// 앞에 비교하면, 앞에서, sql 조건문장만 전달 했고, 
+	// 지금은 sql 문장 + 검색 조건(키워드) 같이 전달. 
 	      MemberVO memberVO=session.selectOne("mapper.member.selectMemberById",id);
 	      return memberVO;		
 	   }
