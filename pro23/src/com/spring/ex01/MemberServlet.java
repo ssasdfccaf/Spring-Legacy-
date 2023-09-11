@@ -25,6 +25,8 @@ public class MemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		MemberDAO dao = new MemberDAO();
+		// 만약, 마이바티스라는 디비 프레임 워크를 사용을 안하게 되면, 
+		// 여기에, 1)디비에 연결하는 코드, 2) 디비를 불러오는 sql 3) 닫는 코드 
 		List<MemberVO> membersList = dao.selectAllMemberList();
 		//List<HashMap<String, String>> membersList = dao.selectAllMemberList();
 		request.setAttribute("membersList", membersList);

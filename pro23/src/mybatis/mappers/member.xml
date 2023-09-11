@@ -4,8 +4,14 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
+
+<!-- 멤버 테이블에 관련된 sql 문장을 관리하는 설정 파일. 
+코드의 가독성 좋아지고, 유지보수가 좋아짐.  -->
 <!-- 패키지명, 폴더 위치 : mapper.member -->
 <mapper namespace="mapper.member">
+<!-- 모델 클래스라는 곳에, 뷰에서 입력받은 데이터를 하나의 모델에 담아서, 
+데이터를 전달하는 용도 사용됨. 양방향, 디비에 보낼 때 사용하고, 
+디비에서 데이터를 받아올 때 사용함.  -->
 	<resultMap id="memResult" type="memberVO">
 		<result property="id" column="id" />
         <result property="pwd" column="pwd" />
@@ -22,7 +28,8 @@
       <result property="joinDate" column="joinDate" />
    </resultMap> -->
 
-
+<!-- sql의 문장을 따로 분리해서, id로 호출하면, 원하는 결과를 얻는다. 
+타입도 지정가능.  -->
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
          select * from t_member	order by joinDate desc	 	
