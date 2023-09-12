@@ -79,6 +79,14 @@
          id=#{id}			
       ]]>
 	 </select>	
+	 
+	 	<select id="selectMemberByName" resultMap="memResult"  parameterType="String" >
+      <![CDATA[
+         select * from t_member
+         where
+         name=#{id}			
+      ]]>
+	 </select>	
 	
 	<select id="selectMemberByPwd" resultMap="memResult"  parameterType="int" >
       <![CDATA[
@@ -88,6 +96,8 @@
       ]]>
     </select>
     
+    <!-- 실제 데이터 추가하는 작업, 현제 동네 3번째, 
+    업무 : 디비에 실제 데이터를 입력하는 sql 문장을 관리하는 일.  -->
      <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
 		 insert into t_member(id,pwd, name, email)
