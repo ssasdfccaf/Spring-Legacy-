@@ -189,12 +189,16 @@
       ]]>
       
       where name in
+      <!-- item 목록 안에 요소, abc1, abc2, abc3 들어 있고, 반복문으로 하나씩 꺼내서 나열하기. -->
       <foreach item="item" collection="list" open="(" separator="," close=")" >
          #{item}
       </foreach>
       order by joinDate desc
    </select>
    
+   <!-- 한번에 여러 임시 데이터 넣는 예제 -->
+   <!-- m1,m2,m3 라는 인스턴스 목록의 요소가 들어있고, ->list 
+   여기서 하나씩 꺼내서 item 에 담아서 반복 작업 합니다. -->
    <insert id="foreachInsert"  parameterType="java.util.Map">
       <foreach item="item"  collection="list"   open="INSERT ALL" separator=" " close="SELECT * FROM DUAL" >
           INTO  t_member(id, pwd, name, email)

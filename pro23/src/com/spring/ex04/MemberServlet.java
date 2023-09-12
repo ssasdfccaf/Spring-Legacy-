@@ -130,18 +130,25 @@ public class MemberServlet extends HttpServlet {
           request.setAttribute("membersList",membersList);
           nextPage="test03/listMembers.jsp";
        }else if(action.equals("foreachSelect")) {
+    	   // foreachSelect 라는 id 이름으로 , 검색 조건의 In 연산자를 활용하는 연습. 
+    	   // 검색 조건의 목록을 낱개로 보내는게 아니라, 리스트 타입의 ArrayList 형으로 
+    	   // 전달함. 
 		  List<String> nameList = new ArrayList<String>();
-		  nameList.add("ȫ�浿");
-		  nameList.add("������");
-		  nameList.add("�̼���");
+		  nameList.add("abc1");
+		  nameList.add("abc2");
+		  nameList.add("abc3");
+		  // 외주 맡기기, 동네2번으로 
 		  List<MemberVO> membersList=dao.foreachSelect(nameList);
 		  request.setAttribute("membersList",membersList);
 		  nextPage="test03/listMembers.jsp";
 	   }else if(action.equals("foreachInsert")) {
+		   // foreachInsert 이용해서, 전달시, 앞에서는 문자열을 요소로 , 다음 동네에 전달.
+		   // 목록의 요소로 인스턴스를 담아서 전달합니다. 
           List<MemberVO> memList = new ArrayList<MemberVO>();
-          memList.add(new MemberVO("m1", "1234", "�ڱ浿", "m1@test.com"));
-          memList.add(new MemberVO("m2", "1234", "�̱浿", "m2@test.com"));
-          memList.add(new MemberVO("m3", "1234", "��浿", "m3@test.com"));
+          memList.add(new MemberVO("m1", "1234", "m1", "m1@test.com"));
+          memList.add(new MemberVO("m2", "1234", "m2", "m2@test.com"));
+          memList.add(new MemberVO("m3", "1234", "m3", "m3@test.com"));
+          // 실제 작업이지만, 외주 맡기고 
           int result=dao.foreachInsert(memList);
           nextPage="/mem4.do?action=listMembers";
 	    }else if(action.equals("selectLike")) {

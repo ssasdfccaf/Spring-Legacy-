@@ -102,13 +102,15 @@ public class MemberDAO {
     public List<MemberVO>  foreachSelect(List nameList){
         sqlMapper=getInstance();
         SqlSession session=sqlMapper.openSession();
+        // 실제 디비에 접근해서 작업 하는 부분, member.xml , 외주 보내기. 
         List list=session.selectList("mapper.member.foreachSelect",nameList);
         return list;		
     }
-    
+    // 동네 2번이고, 여기서는 , member.xml에 sql 문장을 매핑 하는 곳. 
     public int  foreachInsert(List memList){
         sqlMapper=getInstance();
         SqlSession session=sqlMapper.openSession();
+        // 실제 작업, 외주 맡김. 
         int result = session.insert("mapper.member.foreachInsert",memList);
         session.commit();
         return result ;		
