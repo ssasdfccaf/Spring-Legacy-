@@ -25,7 +25,8 @@
 <!-- 뷰 -> 서버에 전달하는데 -> 수신호를 action 문자열에 담아서 서버에 전달.
 action=insertMember -->
 <!-- name 별로 서버에서 일단 각각 가져오는 부분에 이용됨. -> id,pwd,name,email. --> 
-	<form method="post"   action="${contextPath}/mem4.do?action=insertMember">
+	<%-- <form method="post"   action="${contextPath}/mem4.do?action=insertMember"> --%>
+	<form method="post"   action="${contextPath}/mem4.do?action=insertMember2">
 	<h1  class="text_center">회원 가입창</h1>
 	<table  align="center">
 	   <tr>

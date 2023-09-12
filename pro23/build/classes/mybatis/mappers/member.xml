@@ -98,17 +98,22 @@
     
     <!-- 실제 데이터 추가하는 작업, 현제 동네 3번째, 
     업무 : 디비에 실제 데이터를 입력하는 sql 문장을 관리하는 일.  -->
+    <!-- 등록일 추가하는 방법에 여러가지.
+    1) 응용(백 부분에 추가, 서블릿에서 추가)
+    2) 디비(함수등 이용해서 처리) 
+    디비에서 최대한 가공해서, 데이터를 백으로 전달하는 방식 매우매우 추천.!!!!!!
+    -->
      <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into t_member(id,pwd, name, email)
-		 values(#{id}, #{pwd}, #{name}, #{email})
+		 insert into t_member(id,pwd, name, email, joinDate)
+		 values(#{id}, #{pwd}, #{name}, #{email}, sysdate)
 		]]>      
 	</insert>
 	
 	<insert id="insertMember2"  parameterType="java.util.Map">
 		<![CDATA[
-			 insert into t_member(id,pwd, name, email)
-			 values(#{id}, #{pwd}, #{name}, #{email})
+			 insert into t_member(id,pwd, name, email,joinDate)
+			 values(#{id}, #{pwd}, #{name}, #{email},sysdate)
 		]]>      
    </insert>
    

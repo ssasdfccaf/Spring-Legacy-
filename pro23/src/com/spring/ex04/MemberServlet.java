@@ -80,12 +80,15 @@ public class MemberServlet extends HttpServlet {
            String id=request.getParameter("id");
            String pwd=request.getParameter("pwd");
            String name=request.getParameter("name");
-           String email = request.getParameter("email");         
+           String email = request.getParameter("email");    
+           // 모델 클래스를 , HashMap 타입으로 변경해서, 디비로 전달하는 과정. 
+           // 포인트, 전달하는 박스의 타입이 변경이 되었다. 내용물은 그대로. 
            Map<String, String> memberMap=new HashMap<String, String>();
            memberMap.put("id", id);
            memberMap.put("pwd", pwd);
            memberMap.put("name", name);
            memberMap.put("email", email);
+           // 실제 데이터를 전달하는 작업, 본인 작업을 못해서, 외주 동네2번. 
            dao.insertMember2(memberMap);
            nextPage="/mem4.do?action=listMembers";
       }else if(action.equals("updateMember")){
