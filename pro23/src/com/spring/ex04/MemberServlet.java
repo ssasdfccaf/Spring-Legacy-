@@ -91,7 +91,22 @@ public class MemberServlet extends HttpServlet {
            // 실제 데이터를 전달하는 작업, 본인 작업을 못해서, 외주 동네2번. 
            dao.insertMember2(memberMap);
            nextPage="/mem4.do?action=listMembers";
-      }else if(action.equals("updateMember")){
+      } // 수정폼으로 이동할 로직
+       else if(action.equals("modMember")){
+           String id=request.getParameter("id");
+         
+           // 뷰에서, 수정 하는 폼 가기위해서, 해당 유저의 아이디를 받아서 왔고, 
+           request.setAttribute("user_id",id);
+           
+           nextPage="/test03/modMember.jsp";     
+       }
+		// 회원가입폼으로 이동할 로직
+       else if(action.equals("memberForm")){
+
+           
+           nextPage="/test03/memberForm.jsp";     
+       }
+       else if(action.equals("updateMember")){
           String id=request.getParameter("id");
           String pwd=request.getParameter("pwd");
           String name=request.getParameter("name");
