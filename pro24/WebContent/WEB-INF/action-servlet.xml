@@ -43,6 +43,8 @@
           <prop key="/member/memberForm.do" >form</prop>
           <!-- 수정하는 폼으로 이동하게끔, 키 - 컨트롤러 메서드 연결 설정 -->
           <prop key="/member/modMember.do" >modMember</prop>
+          <!-- 실제 데이터를 수정하는 부분 -->
+          <prop key="/member/updateMember.do" >updateMember</prop>
        </props>
       </property>
    </bean>

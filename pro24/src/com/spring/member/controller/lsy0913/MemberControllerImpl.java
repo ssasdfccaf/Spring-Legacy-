@@ -44,6 +44,21 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 		return mav;
 	}
 
+	// 수정 적용하기. 
+	// 수정폼 -> 변경된 내용을 가져와서 -> MemberVO 타입의 박스에 담아서 -> 디비 전달. 
+	@Override
+	public ModelAndView updateMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		MemberVO memberVO = new MemberVO();
+		bind(request, memberVO);
+		int result = 0;
+		// 실제 업데이트를 반영하는 로직, 외주주기. 동네 2번 보내기 
+		// 이름 : updateMember
+		result = memberService.updateMember(memberVO);
+		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+		return mav;
+	}	
+	
 	@Override
 	public ModelAndView addMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
@@ -145,6 +160,8 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 			fileName = fileName.substring(fileName.lastIndexOf("/"), fileName.length());
 		}
 		return fileName;
-	}	
+	}
+
+
 
 }

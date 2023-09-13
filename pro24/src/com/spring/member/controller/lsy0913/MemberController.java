@@ -10,7 +10,12 @@ public interface MemberController {
 	// 인터페이스 장점. 
 	// 해당 메서드들의 명세표를 확인 -> 어떤 메서드들이 있는지 한눈에 파악하기 좋음. 
 	// 규모가 커지면 관리가 좋음. 대신에 복잡도는 조금 올라감. 
-	// 수정이 없죠?>-> 실습 과제 ?
+	// 수정이 없죠?>-> 실습 과제 ?modMember
+	// 수정폼으로 가는 로직
+	public ModelAndView modMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	// 수정하는 로직 추가.
+	public ModelAndView updateMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView addMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response) throws Exception;

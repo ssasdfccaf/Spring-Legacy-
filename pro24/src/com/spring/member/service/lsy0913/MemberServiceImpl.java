@@ -37,7 +37,12 @@ public class MemberServiceImpl  implements MemberService{
 		   membervo = memberDAO.selectOneMember(id);
 			return membervo;
 		}
-
+// 추가, 수정 반영하기 
+	   @Override
+		public int updateMember(MemberVO memberVO) throws DataAccessException {
+		   return memberDAO.updateMember(memberVO);
+		}
+	   
 	   @Override
 	   public int addMember(MemberVO memberVO) throws DataAccessException {
 	     return memberDAO.insertMember(memberVO);
@@ -48,6 +53,8 @@ public class MemberServiceImpl  implements MemberService{
 	   public int removeMember(String id) throws DataAccessException {
 	      return memberDAO.deleteMember(id);
 	   }
+
+	
 
 	
 }

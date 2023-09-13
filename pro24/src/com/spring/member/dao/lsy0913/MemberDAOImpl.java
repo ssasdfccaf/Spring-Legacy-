@@ -39,6 +39,13 @@ public class MemberDAOImpl implements MemberDAO {
 		return membervo;
 	}
 
+	// 수정 적용하기.
+	@Override
+	public int updateMember(MemberVO memberVO) throws DataAccessException {
+		int result = sqlSession.update("mapper.member.updateMember", memberVO);
+		return result;
+	}
+	
 	@Override
 	public int insertMember(MemberVO memberVO) throws DataAccessException {
 		int result = sqlSession.insert("mapper.member.insertMember", memberVO);
@@ -50,6 +57,8 @@ public class MemberDAOImpl implements MemberDAO {
 		int result =  sqlSession.delete("mapper.member.deleteMember", id);
 		return result;
 	}
+
+
 
 	
 }
