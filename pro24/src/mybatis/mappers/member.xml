@@ -42,6 +42,7 @@
 	 ]]>
 	 </select> 
 	 
+	 <!-- 한 아이디로 , 한 회원의 정보를 조회하는 sql 있어서 재사용 -->
 	<select id="selectMemberById" resultType="memberVO"  parameterType="String" >
       <![CDATA[
          select * from t_member

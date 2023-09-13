@@ -29,6 +29,14 @@ public class MemberServiceImpl  implements MemberService{
 	      // 동네 3번 , 4번, DB 찍고 돌아 옴. 
 	      return membersList;
 	   }
+	   // 한 회원의 정보 가져오기 추가 부분. 
+	   @Override
+		public MemberVO getOneMember(String id) throws DataAccessException {
+		   MemberVO membervo = null;
+		   // 실제 작업, 동네 3번, dao 외주 주기. 
+		   membervo = memberDAO.selectOneMember(id);
+			return membervo;
+		}
 
 	   @Override
 	   public int addMember(MemberVO memberVO) throws DataAccessException {
@@ -40,4 +48,6 @@ public class MemberServiceImpl  implements MemberService{
 	   public int removeMember(String id) throws DataAccessException {
 	      return memberDAO.deleteMember(id);
 	   }
+
+	
 }

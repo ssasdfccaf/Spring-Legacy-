@@ -27,6 +27,17 @@ public class MemberDAOImpl implements MemberDAO {
 		// 동네 4번, 디비 갔다가 돌와 온 결과. 
 		return membersList;
 	}
+	
+	// 하나의 정보를 조회 할 때 필요한 메서드 : selectOne, 시스템 메서드 
+	// 조건, 첫번째 인자: member.xml 의 sql 문장의 식별 아이디 
+	// 두번째 인자: 디비에 넘길 조건 파라미터(문자열), 한 회원의 아이디를 전달. 
+	// where id = "여기에 사용될 예정"
+	@Override
+	public MemberVO selectOneMember(String id) throws DataAccessException {
+		 MemberVO membervo = null;
+		 membervo = (MemberVO) sqlSession.selectOne("mapper.member.selectMemberById", id);
+		return membervo;
+	}
 
 	@Override
 	public int insertMember(MemberVO memberVO) throws DataAccessException {
@@ -39,4 +50,6 @@ public class MemberDAOImpl implements MemberDAO {
 		int result =  sqlSession.delete("mapper.member.deleteMember", id);
 		return result;
 	}
+
+	
 }

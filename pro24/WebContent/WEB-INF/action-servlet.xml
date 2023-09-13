@@ -41,6 +41,8 @@
           <prop key="/member/addMember.do" >addMember</prop>
           <prop key="/member/removeMember.do">removeMember</prop>
           <prop key="/member/memberForm.do" >form</prop>
+          <!-- 수정하는 폼으로 이동하게끔, 키 - 컨트롤러 메서드 연결 설정 -->
+          <prop key="/member/modMember.do" >modMember</prop>
        </props>
       </property>
    </bean>
