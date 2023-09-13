@@ -41,9 +41,10 @@
 
 <!-- 비유 동네 순서를 쉽게 표현하기위해서 사용. 3번째 -->
 <!-- 데이터 접근을 하기위한 객체들의 모음집 , DAO (Data Access Object)
-실제 데이터 접근은 sqlsession , mybatis 이용함.  --> 
+실제 데이터 접근은 sqlsession , mybatis 이용함.  -->
+<!-- 230913 변경함 --> 
 	<bean id="memberDAO"
-		class="com.spring.member.dao.MemberDAOImpl">
+		class="com.spring.member.dao.lsy0913.MemberDAOImpl">
 		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
 

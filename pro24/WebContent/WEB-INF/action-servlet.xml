@@ -16,14 +16,16 @@
        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="viewClass" 
                           value="org.springframework.web.servlet.view.JstlView"/>
-      <property name="prefix" value="/WEB-INF/views/member/" /> 
+                          <!-- 230913 변경함 -->
+      <property name="prefix" value="/WEB-INF/views/member_lsy0913/" /> 
       <property name="suffix" value=".jsp"/>
    </bean>
    
    <!-- 동네1번, 클라이언트로 부터 동작 명령을 받아서 처리하는 곳, 
    실제 작업은 본인이 안하고, 다 외주를 줍니다. 분업화를 하는 것, 느슨한 결합을 함.  -->
+       <!-- 230913 변경함 -->
    <bean id="memberController" 
-                            class="com.spring.member.controller.MemberControllerImpl">
+                            class="com.spring.member.controller.lsy0913.MemberControllerImpl">
       <property name="methodNameResolver">
          <ref local="memberMethodResolver"/>
       </property>
