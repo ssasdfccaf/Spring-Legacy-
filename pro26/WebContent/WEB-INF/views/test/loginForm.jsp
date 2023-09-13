@@ -15,7 +15,8 @@
 </head>
 
 <body>
-<form   method="post"  action="${contextPath}/test/login.do">
+<!-- 주의사항, action 부분에, 서버에 전달하는 명령어가 계속 변경됨 login ~ login1,2,3,4,5 -->
+<form   method="post"  action="${contextPath}/test/login3.do">
     <!-- <input  type="hidden"  name="email" value="hong@test.com" /> -->
 	<table width="400">
 		<tr>
@@ -23,6 +24,9 @@
 		</tr>
 		<tr>
 			<td>이름 <input type="text" name="userName" size="10"></td>
+		</tr>
+		<tr>
+			<td>이메일 <input type="text" name="email" size="10"></td>
 		</tr>
 	    <tr>
 			<td>
