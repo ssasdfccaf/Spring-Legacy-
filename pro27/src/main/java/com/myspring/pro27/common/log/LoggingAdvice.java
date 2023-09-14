@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
+// 보조 기능의 설정, -> 결론, 이 보조 기능을 , 어느 주기능에서 동작 여부를 정할것이냐, 
+
 public class LoggingAdvice {
 	private static final Logger logger = LoggerFactory.getLogger(LoggingAdvice.class);
 
