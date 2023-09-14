@@ -109,16 +109,17 @@ public class LoginController {
 		return mav;
 	}
 	
-	/*@RequestMapping(value = "/test/login4.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/test/login4.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView login4(@ModelAttribute("info") LoginVO loginVO,
 			                   HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
-		System.out.println("userID: "+loginVO.getUserID());
-		System.out.println("userName: "+loginVO.getUserName());
+		System.out.println("/test/login4.do -> userID: "+loginVO.getUserID());
+		System.out.println("/test/login4.do -> userName: "+loginVO.getUserName());
+		System.out.println("/test/login4.do -> email: "+loginVO.getEmail());
 		mav.setViewName("result");
 		return mav;
-	}*/
+	}
 	   
 	@RequestMapping(value = "/test/login5.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login5(Model model,
