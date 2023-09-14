@@ -151,5 +151,58 @@ public class MemberControllerImpl   implements MemberController {
 		return viewName;
 	}
 
+	// pro26 맞게끔 교체 작업. 다음 시간. 
+		// 애너테이션 기법으로 교체 작업
+		// 현재 pro26, requestMapping으로 교체되어서, *Form 방식으로 변경할 예정.
+//		원래대로, 해당 매핑 주소를 추가해서, 해당 폼으로 가게 하는 방법1-> 추가
+		@Override
+		@RequestMapping(value = "/member/modMember.do", method =  RequestMethod.GET)
+		public ModelAndView modMember(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception {
+			// 수정하는 폼에서, id를 get 방식으로 전송해서, 서버측에 받을 수 있음. 
+					// id를 가져오는 구조는, 삭제에서 복붙. 재사용.
+//					String id=request.getParameter("id");
+					
+					
+					String viewName = getViewName(request);
+					System.out.println("viewName(수정폼)이 뭐야? : " + viewName);
+					ModelAndView mav = new ModelAndView();
+					
+					// mav 에 데이터를 넣는 구조, 회원가입에서 복붙. 재사용.
+					// 결과 뷰에, 아이디만 전달함. 
+					// 만약, 이 아이디에 관련된 모든 정보를 결과 뷰에 재사용할려면
+					// 이 아이디로 하나의 회원의 정보를 디비에서 가져고 와서, 
+					// 이 하나의 회원의 정보를 결과 뷰에 넣으면됨. 
+					mav.addObject("user_id", id);
+					
+					// 추가, 해당 아이디로, 정보를 가져오기. 
+					// 조회된 한 회원의 정보를 담을 임시 인스턴스 : memberOne
+					// getOneMember : 서비스에 아직 없는 메서드 임. 임의로 추가. 
+					// 외주, 서비스로 동네2번 가기. 인터페이스도 추상메서드 추가. 
+					// 구현한 클래스에도 재정의 하기. 
+					MemberVO memberOne = memberService.getOneMember(id);
+					
+					// 디비에서 , 회원 정보를 가져왔으면 뷰에 데이터 전달하기. 
+					mav.addObject("member", memberOne);
+					
+					// 결과 뷰로 가게끔, 설정. 
+					mav.setViewName(viewName);
+					return mav;
+		}
+
+		//애너테이션 기법으로 교체 작업
+		@Override
+		@RequestMapping(value = "/member/updateMember.do", method =  RequestMethod.POST)
+		public ModelAndView updateMember(@ModelAttribute("memberVO") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			request.setCharacterEncoding("utf-8");
+//			MemberVO memberVO = new MemberVO();
+//			bind(request, memberVO);
+			int result = 0;
+			// 실제 업데이트를 반영하는 로직, 외주주기. 동네 2번 보내기 
+			// 이름 : updateMember
+			result = memberService.updateMember(memberVO);
+			ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+			return mav;
+		}
+
 
 }
