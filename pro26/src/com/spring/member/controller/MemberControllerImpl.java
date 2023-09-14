@@ -67,6 +67,11 @@ public class MemberControllerImpl   implements MemberController {
 	}
 	
 	//동일, -> 수정폼 이름이 다름. 
+	// 재사용 안함, 이유? 폼은 단순 폼만 불러오면 상관이 없는데. 
+	// 수정하는 폼은 기존의 회원의 정보를 가져오는 로직이 추가로 필요함
+	// 여기에 추가 할려면, 구조를 변경해야함, 분기를 사용해야함. 
+	// 기존에 정규식 *Form 끝나는 부분을 받는 로직이 존재 재사용 방법2-> 기존 뷰 이름 변경.
+	
 	/*@RequestMapping(value = { "/member/loginForm.do", "/member/memberForm.do" }, method =  RequestMethod.GET)*/
 	@RequestMapping(value = "/member/*Form.do", method =  RequestMethod.GET)
 	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -111,8 +116,10 @@ public class MemberControllerImpl   implements MemberController {
 
 	// pro26 맞게끔 교체 작업. 다음 시간. 
 	// 애너테이션 기법으로 교체 작업
-	// 현재 pro26, requestMapping으로 교체되어서, *Form 방식으로 변경할 예정. 
+	// 현재 pro26, requestMapping으로 교체되어서, *Form 방식으로 변경할 예정.
+//	원래대로, 해당 매핑 주소를 추가해서, 해당 폼으로 가게 하는 방법1-> 추가
 	@Override
+	@RequestMapping(value = "/member/modMember.do", method =  RequestMethod.GET)
 	public ModelAndView modMember(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 수정하는 폼에서, id를 get 방식으로 전송해서, 서버측에 받을 수 있음. 
 				// id를 가져오는 구조는, 삭제에서 복붙. 재사용.
@@ -147,6 +154,7 @@ public class MemberControllerImpl   implements MemberController {
 
 	//애너테이션 기법으로 교체 작업
 	@Override
+	@RequestMapping(value = "/member/updateMember.do", method =  RequestMethod.POST)
 	public ModelAndView updateMember(@ModelAttribute("memberVO") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 //		MemberVO memberVO = new MemberVO();
