@@ -48,7 +48,8 @@ public class MemberControllerImpl   implements MemberController {
 		
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
-		result = memberService.addMember(memberVO);
+		System.out.println("뷰로부터 데이터 확인 : member.getId() "+member.getId());
+		result = memberService.addMember(member);
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
 		
