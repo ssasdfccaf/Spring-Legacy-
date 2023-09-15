@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Controller
+/*@Controller*/
 public class FileDownloadController {
 	// 다운로드 위치, 파일이미지 메모리에 읽어서 출력 대상: 웹 브라우저. 
 	// 출력 대상, 보통은 디비에 경로(로컬의 c드라이브, 보통, 미디어 서버 URL)를 저장
