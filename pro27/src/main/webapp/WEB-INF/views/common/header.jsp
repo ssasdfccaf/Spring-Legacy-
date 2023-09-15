@@ -18,7 +18,9 @@
 <table border=0  width="100%">
   <tr>
      <td>
+     <!-- 뷰에서, 서버로 맵핑 주소를 a 링크를 이용해서 전달 -->
 		<a href="${contextPath}/main.do">
+		<!-- 기본 img 태그 이용해서, 서버의 리소스의 정적 이미지만 단순 불러오기. -->
 			<img src="${contextPath}/resources/image/duke_swing.gif"  />
 		</a>
      </td>
