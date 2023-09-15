@@ -23,17 +23,18 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+	<!-- 기존, 뷰 리졸버를 이용해서 결과뷰를 클라이언트에게 전달했고, -> 타일즈로 변경하니, 잠시 주석 -->
+<!-- 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<beans:property name="prefix" value="/WEB-INF/views/" /> 
 		<beans:property name="suffix" value=".jsp" /> 
-	</beans:bean>
+	</beans:bean> -->
 	<!-- 여기서 구간을 base-package="com.myspring.pro27.member" -> 로그 확인안되어서 
 	변경하기 -->
 	
   <context:component-scan	base-package="com.myspring.pro27" />
 
 <!-- 타일즈 실습 설정 -->
- <!-- 
+ 
  
     <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions">
@@ -48,7 +49,7 @@
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</beans:bean>
--->
+
 <!-- 인터셉터 실습 설정 -->
 <!--     
     

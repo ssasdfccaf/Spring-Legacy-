@@ -8,6 +8,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <!-- 원래, css 공통 파일 만들어서 분리해서 작업, 실제 여기는 css 파일만 연결해서 사용함.
+    당분간, 한 파일에 중복해서 사용함.  --> 
     <style>
       #container {
         width: 100%;
