@@ -29,10 +29,12 @@
      </td>
      
      <td>
-       <!-- <a href="#"><h3>로그인</h3></a> -->
+     <!-- 로그인 처리하는 링크 부분 주석이 되어서, 해제하고, 링크 주소도 추가하기.  -->
+       <%-- <a href="${contextPath}/member/loginForm.do"><h3>로그인</h3></a> --%>
        <c:choose>
           <c:when test="${isLogOn == true  && member!= null}">
             <h3>환영합니다. ${member.name }님!</h3>
+            <h3>환영합니다. ${member.email }님!</h3>
             <a href="${contextPath}/member/logout.do"><h3>로그아웃</h3></a>
           </c:when>
           <c:otherwise>

@@ -172,4 +172,12 @@
          name like '%' || #{name} || '%'		
       ]]>
     </select>
+    <!-- 기존 꺼 덮어쓰기 되어서, 다시 가지고 옴.  -->
+     <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+	<![CDATA[
+		select * from t_member	
+		where id=#{id} and pwd=#{pwd}		
+	]]>
+  </select>
+    
 </mapper>
