@@ -52,6 +52,6 @@ public class HomeController {
 
 //	  return "JSONTest";
 		// 기존 뷰를 변경함. board 관련 테스트 뷰.
-	  return "JSONTest2";
+	  return "JSONTest3";
 	}
 }
