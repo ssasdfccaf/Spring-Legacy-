@@ -128,8 +128,9 @@ public class MemberControllerImpl   implements MemberController {
 						       HttpServletRequest request, 
 						       HttpServletResponse response) throws Exception {
 		System.out.println("*Form.do 실행여부 확인=================");
-		String viewName = getViewName(request);
-//		String viewName = (String)request.getAttribute("viewName");
+//		String viewName = getViewName(request);
+		// 인터셉터로 뷰 이름 가져오기 변경함. 
+		String viewName = (String)request.getAttribute("viewName");
 		System.out.println("*viewName 확인================="+ viewName);
 		ModelAndView mav = new ModelAndView();
 		System.out.println("*result 확인================="+ result);
