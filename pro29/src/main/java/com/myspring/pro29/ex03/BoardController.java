@@ -107,13 +107,25 @@ public class BoardController {
 		return resEntity;
 	}
 	
-	//�����ϱ�
+	//DELETE , 레스트 형식으로 , CRUD
+	//클라이언트 측에서 -> 서버에게 데이터 전달, 
+	// 수정, 삭제 할 때, 어느 게시글 수정 또는 삭제를 할지를 번호로 알려주면, 
+	// 서버, 땡큐, 동네1-4 , 한반퀴, 
+	// 클라이언트 주소 : /pro29/boards/777 , DELETE
+	// 확인 방법 2가지, 1) 웹, js 2) 포스트맨 도구로 확인중. 
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> removeArticle (@PathVariable("articleNO") Integer articleNO) {
 		ResponseEntity<String>  resEntity = null;
 		try {
-			logger.info("removeArticle �޼��� ȣ��");
+			// 처음에는 반드시, 클라이언트로 부터 전달 받은 데이터 , 서버에서 확인 하는 연습.
+			// 개발 단계에서, 어느 정도 검토 및 확인이 1차로 끝나면
+			// 배표시에는 각 주석을 모두 제거하고 깔끔하게 업로드 한다고
+			// 문제가 발생시, 우리는 개발 하는 단계(주석등 메시지포함)
+			// 버전으로 점검후, 다시 배포함. 
+			logger.info("removeArticle 호출");
+			System.out.println("반드시 클라이언트로부터 넘어온 정보를 확인하는 습관");
 			logger.info(articleNO.toString());
+			// 데이터 메시지와, 상태 코드를 함께, 전달함. 
 			resEntity =new ResponseEntity("REMOVE_SUCCEEDED",HttpStatus.OK);
 		}catch(Exception e) {
 			resEntity = new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);

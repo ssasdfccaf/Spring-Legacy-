@@ -20,11 +20,14 @@
   	$.ajax({
   	    /* type:"POST",
         url:"${contextPath}/boards", */
-        type:"PUT",
+        /* type:"PUT",
+        url:"${contextPath}/boards/1234", */
+        type:"DELETE",
         url:"${contextPath}/boards/1234",
         contentType: "application/json",
         data :JSON.stringify(article),
       success:function (data,textStatus){
+    	  // 서버로 부터 응답 받은 메세지를 , 자바스크립트의 경고창에 띄우는 방법,
           alert(data);
       },
       error:function(data,textStatus){
