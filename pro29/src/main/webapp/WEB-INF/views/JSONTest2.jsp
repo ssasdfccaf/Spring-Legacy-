@@ -11,17 +11,17 @@
 <script>
   $(function() {
       $("#checkJson").click(function() {
-      	var article = {articleNO:"114", 
-	               writer:"박지성",
-	               title:"안녕하세요", 
-	               content:"상품 소개 글입니다."
+      	var article = {articleNO:"777", 
+	               writer:"이상용",
+	               title:"레스트연습하기, 게시판", 
+	               content:"POST 글 추가해보기. 피카츄"
 	              };
   
   	$.ajax({
-  	    //type:"POST",
-        //url:"${contextPath}/boards",
+  	    /* type:"POST",
+        url:"${contextPath}/boards", */
         type:"PUT",
-        url:"${contextPath}/boards/114",
+        url:"${contextPath}/boards/1234",
         contentType: "application/json",
         data :JSON.stringify(article),
       success:function (data,textStatus){

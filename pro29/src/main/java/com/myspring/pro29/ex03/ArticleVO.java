@@ -35,6 +35,10 @@ public class ArticleVO {
 	
 	
 	@Override
+	// 클라이언트로 부터 전달된 데이터 객체 -> JSON 변환
+	// 서버에 데이터가 전달되었고, 
+	// 전달된 데이터를 자동으로 매핑해서, 
+	// 서버에 정의된 모델클래스의 toString 이용해서, 각 필드를 한번에 출력 한 예임. 
 	public String toString() {
 		String info = "";
 		info += "\n"+articleNO+"\n "

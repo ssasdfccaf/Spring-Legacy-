@@ -43,38 +43,61 @@ public class BoardController {
 		return new ResponseEntity(list,HttpStatus.OK);
 	}
 	
+	// 클라이언트 주소 : /pro29/boards/{articleNO}
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.GET)
+	// @PathVariable("articleNO") Integer articleNO : 클라이언트 주소 요청시, 
+	// 주소 뒤에 매개변수처럼 전달, 서버에서 해당 매개변수를 이용 가능. 
 	public ResponseEntity<ArticleVO> findArticle (@PathVariable("articleNO") Integer articleNO) {
-		logger.info("findArticle �޼��� ȣ��");
+		logger.info("findArticle : 서버에 잘 호출 되었는지 확인 ");
 		ArticleVO vo = new ArticleVO();
 		vo.setArticleNO(articleNO);
-		vo.setWriter("ȫ�浿");
-		vo.setTitle("�ȳ��ϼ���");
-		vo.setContent("ȫ�浿 ���Դϴ�");
+		vo.setWriter("이상용");
+		vo.setTitle("점심메뉴");
+		vo.setContent("라면");
+		// 서버 -> 클라이언트 , 더미 데이터 + 상태 코드 같이 전달. 
 		return new ResponseEntity(vo,HttpStatus.OK);
 	}	
 	
 	
+	// POST : 추가(피카추), PUT : (U)업데이트, GET : 조회, PATCH: 부분 수정, 
+	// DELETE : 삭제, 
+	// 추가 테스트
+	// 클라이언트 주소 : /pro29/boards/ , POST
+	// 방법 2가지 
+	// 1) 웹 , 자바스크립트 보내기. -> JSONTest2.jsp
+	// 2) 포스트맨 으로 보내기. 
 	@RequestMapping(value = "", method = RequestMethod.POST)
+	// ResponseEntity : 데이터 + 상태 
+	// @RequestBody : -> 클라이언트 전달 된 데이터를 , 서버에서 자동으로 모델 클래스 매핑.
+	
 	public ResponseEntity<String> addArticle (@RequestBody ArticleVO articleVO) {
+		// 참조형 변수 타입으로 선언만,
 		ResponseEntity<String>  resEntity = null;
 		try {
-			logger.info("addArticle �޼��� ȣ��");
+			// log4j 이용해서 출력확인 -> 서버에 데이터 전달 잘되었는지 확인 유무로 사용.
+			logger.info("addArticle 호출");
 			logger.info(articleVO.toString());
+			logger.info(articleVO.getTitle());
+			// 서버 -> 클라이어늩 , 메세지 + 상태 코드 전달. 
 			resEntity =new ResponseEntity("ADD_SUCCEEDED",HttpStatus.OK);
 		}catch(Exception e) {
+			// 오류가 발생시, 오류 메세지와 + 상태 코드 전달. 
 			resEntity = new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
 		return resEntity;
 	}	
 	
-	//�����ϱ�
+	//수정확인.
+	//@PathVariable("articleNO") Integer articleNO, : 주소의 매개변수 서버에서 가져와서 사용
+	//@RequestBody ArticleVO articleVO : 서버에 전달된 데이터를, 모델 클래스에 자동 매핑.
+	// 클라이언트 주소 : /pro29/boards/777 , PUT
+	// 임의로 지정한 숫자 아무거나 가져와서 사용 후 , 다시 반환.
 	@RequestMapping(value = "/{articleNO}", method = RequestMethod.PUT)
 	public ResponseEntity<String> modArticle (@PathVariable("articleNO") Integer articleNO, @RequestBody ArticleVO articleVO) {
 		ResponseEntity<String>  resEntity = null;
 		try {
-			logger.info("modArticle �޼��� ȣ��");
+			logger.info("modArticle 확인222");
 			logger.info(articleVO.toString());
 			resEntity =new ResponseEntity("MOD_SUCCEEDED",HttpStatus.OK);
 		}catch(Exception e) {

@@ -49,6 +49,9 @@ public class HomeController {
 	// post 방식으로, 서버에 전달 테스트 중. 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-	  return "JSONTest";
+
+//	  return "JSONTest";
+		// 기존 뷰를 변경함. board 관련 테스트 뷰.
+	  return "JSONTest2";
 	}
 }
