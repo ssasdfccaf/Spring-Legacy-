@@ -54,8 +54,8 @@ public class BoardDAOImpl implements BoardDAO {
 		return articleNO;
 	}
     
-	//���� ���� ���ε�
-	/*
+	//다중이미지 글쓰기
+	
 	@Override
 	public void insertNewImage(Map articleMap) throws DataAccessException {
 		List<ImageVO> imageFileList = (ArrayList)articleMap.get("imageFileList");
@@ -68,7 +68,7 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.insert("mapper.board.insertNewImage",imageFileList);
 	}
 	
-   */
+   
 	
 	// 게시글 번호, 게시글 정보 하나 가져오기.
 	@Override

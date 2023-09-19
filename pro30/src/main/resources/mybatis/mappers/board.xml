@@ -32,12 +32,12 @@
   
 	<!--단일이미지 추가  -->
 	 
-  <insert id="insertNewArticle"  parameterType="java.util.Map">
+<!--   <insert id="insertNewArticle"  parameterType="java.util.Map">
 		<![CDATA[
 			INSERT into t_board(articleNO,  title, content, imageFileName, id)
 			VALUES(#{articleNO},#{title},	#{content}, #{imageFileName},	#{id})
 		]]>      
-	</insert>
+	</insert> -->
 	
 	<!--단일이미지 답글추가  -->
 	 
@@ -83,7 +83,7 @@
   </delete>
 
  <!--다중 이미지 추가 SQL문 -->   
-  <!--
+
     <insert id="insertNewArticle"  parameterType="java.util.Map">
     <![CDATA[
       insert into t_board(articleNO, id, title, content, imageFileName)
@@ -99,7 +99,7 @@
       VALUES (#{item.imageFileNO}, #{item.imageFileName}, #{item.articleNO}, sysdate)
     </foreach>
   </insert>
- -->
+
  
   <select id="selectNewImageFileNO" resultType="int"  >
     <![CDATA[

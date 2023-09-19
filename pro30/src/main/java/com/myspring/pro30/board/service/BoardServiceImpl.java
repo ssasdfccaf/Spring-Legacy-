@@ -29,11 +29,11 @@ public class BoardServiceImpl  implements BoardService{
 
 	
 	//단일 이미지 글쓰기.
-	@Override
-	public int addNewArticle(Map articleMap) throws Exception{
-		// 동네2 -> 동네3 
-		return boardDAO.insertNewArticle(articleMap);
-	}
+//	@Override
+//	public int addNewArticle(Map articleMap) throws Exception{
+//		// 동네2 -> 동네3 
+//		return boardDAO.insertNewArticle(articleMap);
+//	}
 	
 	//단일  이미지 답글쓰기.
 		@Override
@@ -42,8 +42,8 @@ public class BoardServiceImpl  implements BoardService{
 			return boardDAO.insertReplyNewArticle(articleMap);
 		}
 	
-	 //���� �̹��� �߰��ϱ�
-	/*
+	 //	//다중 이미지 글쓰기.
+
 	@Override
 	public int addNewArticle(Map articleMap) throws Exception{
 		int articleNO = boardDAO.insertNewArticle(articleMap);
@@ -51,7 +51,7 @@ public class BoardServiceImpl  implements BoardService{
 		boardDAO.insertNewImage(articleMap);
 		return articleNO;
 	}
-	*/
+
 	/*
 	//���� ���� ���̱�
 	@Override
