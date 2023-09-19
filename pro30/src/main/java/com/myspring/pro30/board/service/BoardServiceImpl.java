@@ -59,14 +59,16 @@ public class BoardServiceImpl  implements BoardService{
    */
 	
 	
-	 //���� ���� ���̱�
+	 //단일 이미지, 상세페이지 보기. 
 	@Override
 	public ArticleVO viewArticle(int articleNO) throws Exception {
+		// 동네 2번 -> 동네 3번으로 articleNO=4 예)
 		ArticleVO articleVO = boardDAO.selectArticle(articleNO);
 		return articleVO;
 	}
 	
 	
+	// 단일 이미지 , 글 수정시 로직. 
 	@Override
 	public void modArticle(Map articleMap) throws Exception {
 		boardDAO.updateArticle(articleMap);

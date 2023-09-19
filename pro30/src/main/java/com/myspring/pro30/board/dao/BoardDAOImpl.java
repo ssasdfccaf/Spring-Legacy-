@@ -55,11 +55,13 @@ public class BoardDAOImpl implements BoardDAO {
 	
    */
 	
+	// 게시글 번호, 게시글 정보 하나 가져오기.
 	@Override
 	public ArticleVO selectArticle(int articleNO) throws DataAccessException {
 		return sqlSession.selectOne("mapper.board.selectArticle", articleNO);
 	}
 
+	// 단일 이미지, 수정된 내용 적용하기. 
 	@Override
 	public void updateArticle(Map articleMap) throws DataAccessException {
 		sqlSession.update("mapper.board.updateArticle", articleMap);

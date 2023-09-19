@@ -171,12 +171,21 @@ public class BoardControllerImpl  implements BoardController{
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	// @RequestParam, 
 	// 클라이언트로 전달 받은 매개변수를 서버에서 사용하는 방법
+	// 게시글 제목 클릭시, 서버로 전달된 주소 예
+	// http://localhost:8090/pro30/board/viewArticle.do?articleNO=4
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception{
+		// 인터셉터를 이용해서, 서버의 컨트롤러에 도달하기전에, 해당 뷰의 이름을 가져와서
+		// request 인스턴스에 미리 담아두기. 
 		String viewName = (String)request.getAttribute("viewName");
+		// 상세 페이지를 보기위해서, articleNO=4 에대한 정보를 조회하는 과정
+		// 동네1번 작업 못하니, 동네2번에 외주-> 결과는 4번 게시글의 내용을 가져오는 로직. 
 		articleVO=boardService.viewArticle(articleNO);
+		// 4번 게시글의 정보를 디비에서 조회하고 돌아왔음.
 		ModelAndView mav = new ModelAndView();
+		// 데이터와 뷰를 같이 전달하자. 
 		mav.setViewName(viewName);
+		// 데이터를 결과 뷰에 전달. 
 		mav.addObject("article", articleVO);
 		return mav;
 	}
@@ -197,21 +206,24 @@ public class BoardControllerImpl  implements BoardController{
 	
 
 	
-  //�� �� �̹��� ���� ���
+  //단일 이미지 수정 적용하는 코드.
   @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
     HttpServletResponse response) throws Exception{
     multipartRequest.setCharacterEncoding("utf-8");
+    // 임시 저장 박스 , 수정된 글, 이미지를 담는 박스
 	Map<String,Object> articleMap = new HashMap<String, Object>();
+	// 일반 데이터 추출 
 	Enumeration enu=multipartRequest.getParameterNames();
 	while(enu.hasMoreElements()){
 		String name=(String)enu.nextElement();
 		String value=multipartRequest.getParameter(name);
 		articleMap.put(name,value);
 	}
-	
+	// 수정된 이미지 미디어 저장소 저장 후, 파일 이름 가져오기.
 	String imageFileName= upload(multipartRequest);
+	
 	HttpSession session = multipartRequest.getSession();
 	MemberVO memberVO = (MemberVO) session.getAttribute("member");
 	String id = memberVO.getId();
@@ -219,23 +231,27 @@ public class BoardControllerImpl  implements BoardController{
 	articleMap.put("imageFileName", imageFileName);
 	
 	String articleNO=(String)articleMap.get("articleNO");
+	
 	String message;
 	ResponseEntity resEnt=null;
 	HttpHeaders responseHeaders = new HttpHeaders();
 	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
     try {
+    	// 수정된 데이터를 디비에 반영 하는 로직, 외주주기. 
        boardService.modArticle(articleMap);
+       // 실제 이미지를 업로드 하는 로직. 
        if(imageFileName!=null && imageFileName.length()!=0) {
          File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
          File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
          FileUtils.moveFileToDirectory(srcFile, destDir, true);
          
+         // 기존 이미지 삭제 
          String originalFileName = (String)articleMap.get("originalFileName");
          File oldFile = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO+"\\"+originalFileName);
          oldFile.delete();
        }	
        message = "<script>";
-	   message += " alert('���� �����߽��ϴ�.');";
+	   message += " alert('수정 완료');";
 	   message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 	   message +=" </script>";
        resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -243,7 +259,7 @@ public class BoardControllerImpl  implements BoardController{
       File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
       srcFile.delete();
       message = "<script>";
-	  message += " alert('������ �߻��߽��ϴ�.�ٽ� �������ּ���');";
+	  message += " alert('수정오류');";
 	  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 	  message +=" </script>";
       resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -251,6 +267,8 @@ public class BoardControllerImpl  implements BoardController{
     return resEnt;
   }
   
+  
+  // 삭제하기. 
   @Override
   @RequestMapping(value="/board/removeArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
