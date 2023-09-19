@@ -39,6 +39,7 @@
 		]]>      
 	</insert>
 	
+	<!-- 다음 게시글 번호를 생성해주는 디비  -->
   <select id="selectNewArticleNO" resultType="int"  >
 		<![CDATA[
 			SELECT  max(articleNO)+1 from t_board		

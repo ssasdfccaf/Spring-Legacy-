@@ -86,44 +86,78 @@ public class BoardControllerImpl  implements BoardController{
 		// 예) 작성자, 게시글, 등록일 
 		Enumeration enu=multipartRequest.getParameterNames();
 		while(enu.hasMoreElements()){
+			// multipartRequest : 일반 데이터 가 있다면
 			String name=(String)enu.nextElement();
 			String value=multipartRequest.getParameter(name);
 			// key: title , value : 게시글 제목
 			articleMap.put(name,value);
 		}
-		//
+		//upload 메서드는 아래 정의가 되어 있고,
+		// 미디어 저장소에 파일형식으로 저장을하고, 
+		// 저장된 파일 이미지의 이름을 반환하는 형식
 		String imageFileName= upload(multipartRequest);
+		// 로그인 후, 세션에 로그인 된 정보를 등록
+		// 세션에 접근하기 위한 인스턴스 
 		HttpSession session = multipartRequest.getSession();
+		// session , 임시 서버의 저장소에 로그인된 정보를 가지고 온다. 
+		// memberVO , 로그인 된 회원의 정보 
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		// 로그인한 회원의 아이디 조회.
 		String id = memberVO.getId();
+		// articleMap 에 부모글의 번호 기본으로 0으로 설정
 		articleMap.put("parentNO", 0);
+		// id -> 로그인한 회원의 아이디
 		articleMap.put("id", id);
+		// 게시글의 첨부된 이미지 파일의 이름. 
 		articleMap.put("imageFileName", imageFileName);
 		
+		// 데이터 전달 상태를 알려주는 역할로 메세지를 사용할 예정
 		String message;
+		// 데이터와 상태를 같이 전달하기 위한 ResponseEntity 사용.
 		ResponseEntity resEnt=null;
+		// ResponseEntity = 1)데이터 + 2)상태 + 3)헤더(추가요소) 
 		HttpHeaders responseHeaders = new HttpHeaders();
+		// 3) 헤더 추가한 요소, 
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
+			// 실제 데이터를 입력시, 항상 try catch 구문 안에서 작업.
+			// 파일 IO , 언제든 오류가 발생할 가능성이 있어서, 비정상 종료 방지 하기 위해서
+			// try 안에서 작업을 함. 
+			// 
+			// 동네 1, 동네 2 외주를 준다. 
+			// 로그인- 글쓰기 연결 확인 후.
+			
+			// 일반데이터+ 파일이미지 이름 
+			// 동네1 ~ 동네4 통해서, 디비에 저장. +
+			// articleMap: 구성요소, 
+			// 1) 게시글 내용 2) 이미지 파일 이름 3) parentNO:0
 			int articleNO = boardService.addNewArticle(articleMap);
+			
+			// 실제 이미지 파일을 -> 물리 저장소에 저장하는 로직. 
+			// 이미지 파일 첨부 했다. 즉, 널도 아니고, 길이가 0도 아니다.
 			if(imageFileName!=null && imageFileName.length()!=0) {
+				// 임시 파일 저장소
 				File srcFile = new 
 				File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+				// 실제 파일 저장이되는 저장소 
 				File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+				// 임시 저장소 -> 실제 저장소 파일을 이동함. 
 				FileUtils.moveFileToDirectory(srcFile, destDir,true);
 			}
-	
+	// 서버 -> 클라이언트 : 상태를 알려줌. 데이터가 잘 작성되었다고.
 			message = "<script>";
-			message += " alert('������ �߰��߽��ϴ�.');";
+			message += " alert('글쓰기 성공.');";
 			message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
 			message +=" </script>";
 		    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}catch(Exception e) {
+			// 오류가 발생시
+			// 임시 저장소를 삭제 
 			File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
 			srcFile.delete();
-			
+			// 메세지 글쓰기 작성 오류
 			message = " <script>";
-			message +=" alert('������ �߻��߽��ϴ�. �ٽ� �õ��� �ּ���');');";
+			message +=" alert('글쓰기 작성 오류');');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
 			message +=" </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -133,8 +167,10 @@ public class BoardControllerImpl  implements BoardController{
 	}
 	
 	
-	//�Ѱ��� �̹��� �����ֱ�
+	//상세 페이지 조회, 단일 이미지 버전. 
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
+	// @RequestParam, 
+	// 클라이언트로 전달 받은 매개변수를 서버에서 사용하는 방법
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
