@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="passwordCheck2" value="${passwordCheck }"/>
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
@@ -13,10 +14,29 @@
  <script src="//code.jquery.com/jquery-3.3.1.js"></script> 
 <script type="text/javascript">
 
+var checkPwd = 0 
+
+
+function checkSubmit() {
+	if(checkPwd ==1) {
+		document.getElementById('frmReply').submit();
+	} else {
+		alert("패스워드 확인 해주세요")
+		checkPwd = 0
+		document.getElementById('inputPassword').focus()
+		return false;
+	}
+}
+
 function passwordConfirm(password){
 	alert("password 전달여부 확인 : " + password)
+	alert("${member.pwd} 전달여부 확인 : " + ${member.pwd})
+
 	if(password == ${member.pwd}){
-		console.log("패스워드가 일치함.")
+		checkPwd = 1
+		alert("password 일치합니다.")
+	} else {
+		alert("password 불일치합니다.")
 	}
 	
 }
@@ -59,10 +79,7 @@ function passwordConfirm(password){
 		<tr>
 			<td align="right">비밀번호:&nbsp;  </td>
 			<td><input id ="inputPassword" type="password" size="10" maxlength="12" name="passwd"> </input> </td>
-			<script>
-			var passwordCheck = ${#inputPassword}.val()
-			</script>
-			<td><input type=button value="패스워드확인"onClick="passwordConfirm(1234)" /></td>
+			<td><input type=button value="패스워드확인"onClick="passwordConfirm(inputPassword.value)" /></td>
 			
 		</tr>
 		<tr>
@@ -73,7 +90,7 @@ function passwordConfirm(password){
 		<tr>
 			<td align="right"> </td>
 			<td>
-				<input type=submit value="답글쓰기" />
+				<input id="submitBtn" type=submit value="답글쓰기" onClick="return checkSubmit()" />
 				<input type=button value="취소"onClick="backToList(this.form)" />
 				
 			</td>
