@@ -281,7 +281,7 @@ public class BoardControllerImpl  implements BoardController{
 			return resEnt;
 		}
 	
-	
+	/*
 	//상세 페이지 조회, 단일 이미지 버전. 
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	// @RequestParam, 
@@ -304,8 +304,8 @@ public class BoardControllerImpl  implements BoardController{
 		mav.addObject("article", articleVO);
 		return mav;
 	}
+	*/
 	
-	/*
 	//다중 이미지 뷰 보기 
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
@@ -317,7 +317,7 @@ public class BoardControllerImpl  implements BoardController{
 		mav.addObject("articleMap", articleMap);
 		return mav;
 	}
-   */
+   
 	
 
 	

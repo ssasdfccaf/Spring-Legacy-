@@ -4,11 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<%-- 다중 이미지의 상세보기시 사용할 예정. 
+<%-- 다중 이미지의 상세보기시 사용할 예정.--%> 
 <c:set var="article"  value="${articleMap.article}"  />
 <c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
 
- --%>
+ 
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
@@ -24,7 +24,7 @@
        display:none;
      }
      #preview{
-      width: 70%
+      width: 30%
      }
    
    </style>
@@ -154,7 +154,7 @@
     <textarea rows="20" cols="60"  name="content"  id="i_content"  disabled />${article.content }</textarea>
    </td>  
   </tr>
- <%-- 
+ <!-- 다중 이미지 출력 부분 -->
  <c:if test="${not empty imageFileList && imageFileList!='null' }">
 	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
 		    <tr>
@@ -173,7 +173,7 @@
 			 </tr>
 		</c:forEach>
  </c:if>
- 	 --%>    
+ 	  
  	 
   <c:choose> 
 	  <c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
