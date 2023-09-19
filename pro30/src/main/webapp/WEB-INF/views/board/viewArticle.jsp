@@ -23,6 +23,9 @@
      #tr_btn_modify{
        display:none;
      }
+     #preview{
+      width: 70%
+     }
    
    </style>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 

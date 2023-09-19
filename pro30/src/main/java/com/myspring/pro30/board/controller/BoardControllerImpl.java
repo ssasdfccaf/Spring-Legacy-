@@ -218,7 +218,7 @@ public class BoardControllerImpl  implements BoardController{
 			// 답글이라서, 부모의 게시글을 가지고 와서 사용하기. 
 //			System.out.println("replyNewArticle 에서 parentNO 확인: " + parentNO);
 //			articleMap.put("parentNO", 7);
-			articleMap.put("parentNO",parentNO );
+			articleMap.put("parentNO",parentNO);
 			// id -> 로그인한 회원의 아이디
 			articleMap.put("id", id);
 			// 게시글의 첨부된 이미지 파일의 이름. 
