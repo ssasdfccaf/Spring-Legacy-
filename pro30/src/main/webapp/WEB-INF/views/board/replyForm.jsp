@@ -13,6 +13,14 @@
  <script src="//code.jquery.com/jquery-3.3.1.js"></script> 
 <script type="text/javascript">
 
+function passwordConfirm(password){
+	alert("password 전달여부 확인 : " + password)
+	if(password == ${member.pwd}){
+		console.log("패스워드가 일치함.")
+	}
+	
+}
+
  function backToList(obj){
  obj.action="${contextPath}/board/listArticles.do";
  obj.submit();
@@ -38,7 +46,7 @@
     <table>
     <tr>
 			<td align="right"> 작성자:&nbsp; </td>
-			<td><input type="text" size="20" maxlength="100"  name="writer"></input> </td>
+			<td><input type="text" size="20" maxlength="100"  name="writer" value=${member.id} readOnly></input> </td>
 		</tr>
 		<tr>
 			<td align="right">제목:&nbsp;  </td>
@@ -50,7 +58,12 @@
 		</tr>
 		<tr>
 			<td align="right">비밀번호:&nbsp;  </td>
-			<td><input type="password" size="10" maxlength="12" name="passwd"> </input> </td>
+			<td><input id ="inputPassword" type="password" size="10" maxlength="12" name="passwd"> </input> </td>
+			<script>
+			var passwordCheck = ${#inputPassword}.val()
+			</script>
+			<td><input type=button value="패스워드확인"onClick="passwordConfirm(1234)" /></td>
+			
 		</tr>
 		<tr>
 			<td align="right">이미지파일 첨부:  </td>

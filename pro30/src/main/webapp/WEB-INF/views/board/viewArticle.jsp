@@ -81,7 +81,7 @@
    바디라는 태그에 붙이는 작업. */
 	 function fn_reply_form(url, parentNO){
 		 var form = document.createElement("form");
-		 form.setAttribute("method", "post");
+		 form.setAttribute("method", "get");
 		 form.setAttribute("action", url);
 		 
 	     var parentNOInput = document.createElement("input");

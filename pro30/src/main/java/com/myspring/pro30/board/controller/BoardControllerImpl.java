@@ -272,27 +272,31 @@ public class BoardControllerImpl  implements BoardController{
   @Override
   @RequestMapping(value="/board/removeArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
+  //
   public ResponseEntity  removeArticle(@RequestParam("articleNO") int articleNO,
                               HttpServletRequest request, HttpServletResponse response) throws Exception{
 	response.setContentType("text/html; charset=UTF-8");
+	
 	String message;
 	ResponseEntity resEnt=null;
 	HttpHeaders responseHeaders = new HttpHeaders();
 	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 	try {
+		// 삭제시, 일반 데이터 + 파일 이미지 도 같이 삭제 
 		boardService.removeArticle(articleNO);
+		// 미디어 서버 , 저장소에 저장된 파일을 삭제 
 		File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
 		FileUtils.deleteDirectory(destDir);
 		
 		message = "<script>";
-		message += " alert('���� �����߽��ϴ�.');";
+		message += " alert('삭제 완료.');";
 		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 	       
 	}catch(Exception e) {
 		message = "<script>";
-		message += " alert('�۾��� ������ �߻��߽��ϴ�.�ٽ� �õ��� �ּ���.');";
+		message += " alert('삭제 오류.');";
 		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -381,7 +385,8 @@ public class BoardControllerImpl  implements BoardController{
 */
 
 	
-
+  // board/*Form.do ->글쓰기 폼, 수정폼, 답글 폼
+  // 뷰만 띄워주는 로직. 
 	@RequestMapping(value = "/board/*Form.do", method =  RequestMethod.GET)
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
