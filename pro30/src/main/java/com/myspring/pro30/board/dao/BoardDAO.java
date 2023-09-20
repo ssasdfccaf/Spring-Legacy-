@@ -18,7 +18,10 @@ public interface BoardDAO {
 	public void insertNewImage(Map articleMap) throws DataAccessException;
 	
 	public ArticleVO selectArticle(int articleNO) throws DataAccessException;
+	// 단일 이미지 버전의 수정적용하기. 이미지 변경도 포함.
 	public void updateArticle(Map articleMap) throws DataAccessException;
+	// 다중 이미지 버전의 수정 적용하기. 일반 데이터만 변경.
+	public void updateArticle2(Map articleMap) throws DataAccessException;
 	public void deleteArticle(int articleNO) throws DataAccessException;
 	public List selectImageFileList(int articleNO) throws DataAccessException;
 	

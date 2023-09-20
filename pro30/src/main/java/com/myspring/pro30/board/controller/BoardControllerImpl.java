@@ -328,9 +328,10 @@ public class BoardControllerImpl  implements BoardController{
 	// 파일 이미지들만 변경해서 사용 하기. 
   @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
+  public ResponseEntity modArticle(@RequestParam("articleNO") int articleNO,MultipartHttpServletRequest multipartRequest,  
     HttpServletResponse response) throws Exception{
     multipartRequest.setCharacterEncoding("utf-8");
+    String imageFileName=null;
     // 임시 저장 박스 , 수정된 글, 이미지를 담는 박스
 	Map<String,Object> articleMap = new HashMap<String, Object>();
 	// 일반 데이터 추출 
@@ -341,49 +342,74 @@ public class BoardControllerImpl  implements BoardController{
 		articleMap.put(name,value);
 	}
 	// 수정된 이미지 미디어 저장소 저장 후, 파일 이름 가져오기.
-	String imageFileName= upload(multipartRequest);
+	// 수정, 다중이미지 추가로 
+	List<String> fileList =multiUpload(multipartRequest);
 	
-	HttpSession session = multipartRequest.getSession();
-	MemberVO memberVO = (MemberVO) session.getAttribute("member");
-	String id = memberVO.getId();
-	articleMap.put("id", id);
-	articleMap.put("imageFileName", imageFileName);
+	List<ImageVO> imageFileList = new ArrayList<ImageVO>();
+	if(fileList!= null && fileList.size()!=0) {
+		for(String fileName : fileList) {
+			ImageVO imageVO = new ImageVO();
+			imageVO.setImageFileName(fileName);
+			imageFileList.add(imageVO);
+		}
+		// 이미지 모델 -> 리스트에 담기 -> 리스트 맵에 담아서, -> 동네2번으로 전달. 
+		articleMap.put("imageFileList", imageFileList);
+	}
+	// 일반 데이터, 파일 데이터를 , 맵이라는 컬렉션에 담은 로직은 마지막.
 	
-	String articleNO=(String)articleMap.get("articleNO");
-	
+	// 데이터 + 상태 + 헤더추가, 서버 -> 클라이언트, 데이터 만 전달. 
 	String message;
 	ResponseEntity resEnt=null;
 	HttpHeaders responseHeaders = new HttpHeaders();
-	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-    try {
-    	// 수정된 데이터를 디비에 반영 하는 로직, 외주주기. 
-       boardService.modArticle(articleMap);
-       // 실제 이미지를 업로드 하는 로직. 
-       if(imageFileName!=null && imageFileName.length()!=0) {
-         File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-         File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
-         FileUtils.moveFileToDirectory(srcFile, destDir, true);
-         
-         // 기존 이미지 삭제 
-         String originalFileName = (String)articleMap.get("originalFileName");
-         File oldFile = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO+"\\"+originalFileName);
-         oldFile.delete();
-       }	
-       message = "<script>";
-	   message += " alert('수정 완료');";
-	   message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
-	   message +=" </script>";
-       resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-    }catch(Exception e) {
-      File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-      srcFile.delete();
-      message = "<script>";
-	  message += " alert('수정오류');";
-	  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
-	  message +=" </script>";
-      resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-    }
-    return resEnt;
+    responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+	try {
+		// 실제 작업 동네2번 외주 주기. 
+		// 주의사항, 일반 데이터, 파일 데이터 분리해서 디비에 저장. 
+		// 기존 로직, 새로운 게시글 작성, 
+		// 이미 있는 게시글을 수정하는 로직, 기존 게시글 번호를 이용하기. 
+		// modArticle 
+//		int articleNO = boardService.addNewArticle(articleMap);
+		// 수정 적용하기. 일반 데이터만 
+		boardService.modArticle2(articleMap);
+		//수정 적용하기. 이미지 데이터만
+		boardService.addOnlyImage(articleMap,articleNO );
+		
+		//
+		if(imageFileList!=null && imageFileList.size()!=0) {
+			for(ImageVO  imageVO:imageFileList) {
+				imageFileName = imageVO.getImageFileName();
+				File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+				File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+				//destDir.mkdirs();
+				FileUtils.moveFileToDirectory(srcFile, destDir,true);
+			}
+		}
+		    
+		message = "<script>";
+		message += " alert('글수정 성공.');";
+		message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
+		message +=" </script>";
+	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+	    
+		 
+	}catch(Exception e) {
+		if(imageFileList!=null && imageFileList.size()!=0) {
+		  for(ImageVO  imageVO:imageFileList) {
+		  	imageFileName = imageVO.getImageFileName();
+			File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+		 	srcFile.delete();
+		  }
+		}
+
+		
+		message = " <script>";
+		message +=" alert('글쓰기 오류');');";
+		message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
+		message +=" </script>";
+		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		e.printStackTrace();
+	}
+	return resEnt;
   }
   
   

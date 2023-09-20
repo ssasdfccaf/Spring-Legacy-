@@ -80,7 +80,7 @@
 <body>
 <!-- action 부분은 컨트롤로에서 추가할 예정, 처리 부분, 
 사실은 폼 부분도 필요함.  -->
-  <form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
+  <form name="frmArticle" method="post"  action="${contextPath}/board/modArticle.do"  enctype="multipart/form-data">
   <table  border=0  align="center">
   <tr>
    <td width=150 align="center" bgcolor=#FF9933>
@@ -144,7 +144,7 @@
  
  
  </table>
- <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  >
+ <input type=submit value="수정반영하기" >
   <input type=button value="취소"  onClick="backToList(frmArticle)">
  </form>
 </body>

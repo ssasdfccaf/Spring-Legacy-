@@ -62,6 +62,7 @@
     ]]>
   </select>
   
+  <!-- 단일 이미지 버전의 수정하기 로직,  -->
   <update id="updateArticle"  parameterType="java.util.Map">
 			update t_board
 			set title=#{title},	 
@@ -69,6 +70,14 @@
 			 <if test="imageFileName!='' and imageFileName!=null">
 			  , imageFileName=#{imageFileName}
 			</if>
+			where articleNO=#{articleNO}
+	</update>
+	
+	 <!-- 다중 이미지 버전의 수정하기 로직,  일반 글만 수정하기.  -->
+  <update id="updateArticle2"  parameterType="java.util.Map">
+			update t_board
+			set title=#{title},	 
+			content=#{content}
 			where articleNO=#{articleNO}
 	</update>
 	

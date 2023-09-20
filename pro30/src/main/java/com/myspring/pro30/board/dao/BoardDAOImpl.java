@@ -88,10 +88,19 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 단일 이미지, 수정된 내용 적용하기. 
+	
 	@Override
 	public void updateArticle(Map articleMap) throws DataAccessException {
 		sqlSession.update("mapper.board.updateArticle", articleMap);
 	}
+	
+	// 다중 이미지, 수정된 내용 적용하기. 일반 데이터 만 변경. 
+	
+		@Override
+		public void updateArticle2(Map articleMap) throws DataAccessException {
+			sqlSession.update("mapper.board.updateArticle2", articleMap);
+		}
+
 
 	@Override
 	public void deleteArticle(int articleNO) throws DataAccessException {
