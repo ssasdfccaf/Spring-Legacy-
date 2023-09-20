@@ -7,6 +7,8 @@ import com.myspring.pro30.board.vo.ArticleVO;
 
 public interface BoardService {
 	public List<ArticleVO> listArticles() throws Exception;
+	// 기존, 단일 이미지 글쓰기와 같은 메서드, 
+	// 다중 이미지 글쓰기 재사용.
 	public int addNewArticle(Map articleMap) throws Exception;
 	// 단일 이미지 상세 뷰 보기
 //	public ArticleVO viewArticle(int articleNO) throws Exception;

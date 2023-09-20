@@ -451,23 +451,45 @@ public class BoardControllerImpl  implements BoardController{
 	// 여러 이미지의 이름을 담은 리스트가 반환. 
 	// 물리 저장소에 이미지를 업로드함. 
 	List<String> fileList =multiUpload(multipartRequest);
+	// fileList: 업로드 된 여러 이미지들의 파일의 이름 담겨져 있다. 
 	
 	// 설명하기.
+	// 이미지를 처리하기 편하게 하기위해서, 모델 클래스를 만들었음. ImageVO
+	// 동네 1 ~ 동네 4 으로 전달 할 때, 박스 (Map) , 
+	// 박스 하위에 - 이미지들의 정보를 담은 리스트를 추가해서, 같이 전송. 
+	
+	// 여러 이미지의 모델 인스턴스를 하나의 리스트에 담기
 	List<ImageVO> imageFileList = new ArrayList<ImageVO>();
+	// 반복 작업, 담아 두었던 fileList : 이미지의 이름들 저장. 
+	// 여기서, 하나씩 꺼내어서, 이미지VO 라는 모델 클래스 타입으로 -> 리스트 담기. 
 	if(fileList!= null && fileList.size()!=0) {
+		// fileList 안에 이미지가 있다면 
+		// 반복문 
 		for(String fileName : fileList) {
+			// 각각의 이미지를 모델에 담아서, 리스트에 추가하는 작업.
 			ImageVO imageVO = new ImageVO();
+			// 파일명을 UTF-8 인코딩 해서 추가.
+			System.out.println("setImageFileName 전 이름 값 확인: " + fileName);
 			imageVO.setImageFileName(fileName);
+			System.out.println("setImageFileName 후 이름 값 확인: " + imageVO.getImageFileName());
 			imageFileList.add(imageVO);
 		}
+		// 이미지 모델 -> 리스트에 담기 -> 리스트 맵에 담아서, -> 동네2번으로 전달. 
 		articleMap.put("imageFileList", imageFileList);
 	}
+	// 일반 데이터, 파일 데이터를 , 맵이라는 컬렉션에 담은 로직은 마지막.
+	
+	// 데이터 + 상태 + 헤더추가, 서버 -> 클라이언트, 데이터 만 전달. 
 	String message;
 	ResponseEntity resEnt=null;
 	HttpHeaders responseHeaders = new HttpHeaders();
     responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 	try {
+		// 실제 작업 동네2번 외주 주기. 
+		// 주의사항, 일반 데이터, 파일 데이터 분리해서 디비에 저장. 
 		int articleNO = boardService.addNewArticle(articleMap);
+		
+		//
 		if(imageFileList!=null && imageFileList.size()!=0) {
 			for(ImageVO  imageVO:imageFileList) {
 				imageFileName = imageVO.getImageFileName();

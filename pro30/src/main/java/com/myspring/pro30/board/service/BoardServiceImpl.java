@@ -42,12 +42,18 @@ public class BoardServiceImpl  implements BoardService{
 			return boardDAO.insertReplyNewArticle(articleMap);
 		}
 	
-	 //	//다중 이미지 글쓰기.
-
+	 //다중 이미지 글쓰기.
+		// articleMap : 일반 데이터 + 여러 파일 이미지 이름 담아져 있다.
 	@Override
 	public int addNewArticle(Map articleMap) throws Exception{
+		// 새 게시글 번호를 가져오는 로직 
 		int articleNO = boardDAO.insertNewArticle(articleMap);
+		// 일반 데이터를 디비에 저장하고, 새 게시글 번호를 가져 왔음.
+		
+		// 새게시글 번호를 맵에 저장.
 		articleMap.put("articleNO", articleNO);
+		// 파일 데이터를 디비에 저장 하는 로직. 
+		// 이미지 테이블에, 해당 게시글 번호로, 여러 이미지를 저장 할 예정. 
 		boardDAO.insertNewImage(articleMap);
 		return articleNO;
 	}

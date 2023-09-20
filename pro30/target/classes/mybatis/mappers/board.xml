@@ -83,7 +83,7 @@
   </delete>
 
  <!--다중 이미지 추가 SQL문 -->   
-
+<!-- 일반 데이터를 디비에 저장 -->
     <insert id="insertNewArticle"  parameterType="java.util.Map">
     <![CDATA[
       insert into t_board(articleNO, id, title, content, imageFileName)
@@ -91,6 +91,9 @@
     ]]>      
   </insert>
 
+ <!-- 마이바티스 천천히 연습 했던 옵션 중에 하나, 
+ 추가시 , 한번에 여러개를 디비에 저장하는 기능. 
+ 맵에 담겨진, 여러 이미지를 imageVO 타입으로 해서, 추가하기. -->
  
    <insert id="insertNewImage"  parameterType="java.util.Map">
     <foreach item="item"  collection="list"   open="INSERT ALL" 
@@ -100,7 +103,7 @@
     </foreach>
   </insert>
 
- 
+ <!-- 이미지 테이블의 갯수를 반환, 새 이미지 번호를 알려주는 sql  -->
   <select id="selectNewImageFileNO" resultType="int"  >
     <![CDATA[
       SELECT  nvl(max(imageFileNO),0) from t_imageFile		
