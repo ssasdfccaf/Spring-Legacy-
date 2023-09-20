@@ -5,7 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <%-- 다중 이미지의 상세보기시 사용할 예정.--%> 
+<!-- 일반 데이터가 담겨 있고 -->
 <c:set var="article"  value="${articleMap.article}"  />
+<!-- 파일 이미지 이름 목록 담겨져 있음. -->
 <c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
 
  
@@ -37,6 +39,7 @@
      }
  
    /* 해당 아이디의 속성을 한번에 변경하는 함수 */
+   // 수정하기 눌렀을 때, 각 디브 태그 아이디의 활성화 상태
 	 function fn_enable(obj){
 		 document.getElementById("i_title").disabled=false;
 		 document.getElementById("i_content").disabled=false;
@@ -48,7 +51,7 @@
 	 
    /* 수정폼으로 이동하는 함수 */
 	 function fn_modify_article(obj){
-		 obj.action="${contextPath}/board/modArticle.do";
+		 obj.action="${contextPath}/board/modForm.do";
 		 obj.submit();
 	 }
 	 
@@ -229,7 +232,9 @@
   <tr  id="tr_btn"    >
    <td colspan="2" align="center">
        <c:if test="${member.id == article.id }">
-	      <input type=button value="수정하기" onClick="fn_enable(this.form)">
+       
+       <input type=button value="수정하기" onClick="fn_modify_article(this.form)">
+	      <!-- <input type=button value="수정하기" onClick="fn_enable(this.form)"> -->
 	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
 	    </c:if>
 	    <input type=button value="리스트로 돌아가기"  onClick="backToList(this.form)">

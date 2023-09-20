@@ -1,6 +1,8 @@
 package com.myspring.pro30.board.controller;
 
 import java.io.File;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -322,6 +324,8 @@ public class BoardControllerImpl  implements BoardController{
 
 	
   //단일 이미지 수정 적용하는 코드.
+	// 만약, 재사용 한다면, 일반 데이터는 그대로 두고, 
+	// 파일 이미지들만 변경해서 사용 하기. 
   @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
@@ -469,9 +473,16 @@ public class BoardControllerImpl  implements BoardController{
 			// 각각의 이미지를 모델에 담아서, 리스트에 추가하는 작업.
 			ImageVO imageVO = new ImageVO();
 			// 파일명을 UTF-8 인코딩 해서 추가.
-			System.out.println("setImageFileName 전 이름 값 확인: " + fileName);
+//			System.out.println("setImageFileName 전 이름 값 확인: " + fileName);
 			imageVO.setImageFileName(fileName);
-			System.out.println("setImageFileName 후 이름 값 확인: " + imageVO.getImageFileName());
+			// 해결2, get에서 , 디코딩해서 원래 이름을 가져와서, 다시 세터 
+//			System.out.println("getImageFileName 디코딩 전 이름 값 확인: " + imageVO.getImageFileName());
+			//URLEncoder.encode(imageFileName,"UTF-8");
+//			String decodeFileName = URLDecoder.decode(imageVO.getImageFileName(), "UTF-8");
+			// 또 인코딩, 무한 반복. 디코딩, 인코딩 한번 보는 예제 확인 넘어가기. 
+//			imageVO.setImageFileName(decodeFileName);
+//			System.out.println("getImageFileName 디코딩 후 이름 값 확인: " + decodeFileName);
+//			System.out.println("setImageFileName 후 이름 값 확인: " + imageVO.getImageFileName());
 			imageFileList.add(imageVO);
 		}
 		// 이미지 모델 -> 리스트에 담기 -> 리스트 맵에 담아서, -> 동네2번으로 전달. 
@@ -555,6 +566,18 @@ public class BoardControllerImpl  implements BoardController{
 		
 		return mav;
 	}
+	
+	// 수정 폼
+		@RequestMapping(value = "/board/modForm.do", method = {RequestMethod.GET, RequestMethod.POST})
+		private ModelAndView form3(@RequestParam(value="articleNO", required=false) int articleNO,HttpServletRequest request, HttpServletResponse response) throws Exception {
+			String viewName = (String)request.getAttribute("viewName");
+			Map articleMap=boardService.viewArticle(articleNO);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName(viewName);
+			mav.addObject("articleMap", articleMap);
+			
+			return mav;
+		}
 
 	//미디어 저장소, 이미지 파일 올리기. 단일이미지
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception{

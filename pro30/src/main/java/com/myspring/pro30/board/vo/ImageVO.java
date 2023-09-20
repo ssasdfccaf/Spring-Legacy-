@@ -21,9 +21,11 @@ public class ImageVO {
 	}
 	public void setImageFileName(String imageFileName) {
 		
+		// 해결 1, 인코딩 안하기.
 			if(imageFileName!= null && imageFileName.length()!=0) {
 				this.imageFileName = imageFileName;
 			}
+		// 해결2, 인코딩 인 경우
 //		try {
 //			if(imageFileName!= null && imageFileName.length()!=0) {
 //				this.imageFileName = URLEncoder.encode(imageFileName,"UTF-8");
