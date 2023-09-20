@@ -126,6 +126,37 @@
 	    <input type=text value="<fmt:formatDate value="${article.writeDate}" />" readOnly />
 	   </td>   
   </tr>
+   <!-- 다중 이미지 출력 부분 -->
+ <c:if test="${not empty imageFileList && imageFileList!='null' }">
+	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+			      이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			    <a href="${contextPath}/board/deleteImage.do?imageFileNO=${item.imageFileNO}&articleNO=${article.articleNO}&imageFileName=${item.imageFileName}"  class="no-underline">삭제</a><br>
+			    
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			    <!--    <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /> -->
+			    </td>
+			 </tr>
+		</c:forEach>
+ </c:if>
+ 
+ 
+ 
+ </table>
+ <input type=submit value="수정반영하기" >
+  <input type=button value="취소"  onClick="backToList(frmArticle)">
+ </form>
+ 
+ <!-- 이미지 파일 추가 부분 분리 -->
+ <table  border=0  align="center">
   <tr>
 			  <td align="right">이미지파일 첨부:  </td>
 			  <!-- 추가3 -->
@@ -141,11 +172,7 @@
 	      <!-- 첨부된 이미지를 불러오는 영역 -->
 	       <td colspan="4"><div id="previews"></div></td>
 	   </tr>
+  </table>
  
- 
- </table>
- <input type=submit value="수정반영하기" >
-  <input type=button value="취소"  onClick="backToList(frmArticle)">
- </form>
 </body>
 </html>

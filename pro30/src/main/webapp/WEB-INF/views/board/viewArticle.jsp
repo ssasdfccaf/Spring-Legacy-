@@ -171,7 +171,7 @@
 			  </tr>  
 			  <tr>
 			    <td>
-			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    <!--    <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /> -->
 			    </td>
 			 </tr>
 		</c:forEach>
@@ -192,7 +192,7 @@
 		  <tr>
 		    <td ></td>
 		    <td>
-		       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+		       <!-- <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /> -->
 		    </td>
 		  </tr> 
 		 </c:when>
@@ -209,7 +209,7 @@
 				    <td ></td>
 				    <td>
 				       <img id="preview"  /><br>
-				       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+				       <!-- <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /> -->
 				    </td>
 			  </tr>
 		 </c:otherwise>

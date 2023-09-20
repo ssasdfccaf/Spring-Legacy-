@@ -26,4 +26,10 @@ public interface BoardService {
 	public int addReplyNewArticle(Map articleMap) throws Exception;
 	
 	public void removeArticle(int articleNO) throws Exception;
+	
+	// 이미지만 삭제 , 디비에있는 내용삭제
+	public void removeImage(int imageFileNO) throws Exception;
+	
+	
+	
 }

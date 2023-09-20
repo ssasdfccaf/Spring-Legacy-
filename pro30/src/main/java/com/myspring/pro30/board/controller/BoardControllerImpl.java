@@ -371,11 +371,14 @@ public class BoardControllerImpl  implements BoardController{
 //		int articleNO = boardService.addNewArticle(articleMap);
 		// 수정 적용하기. 일반 데이터만 
 		boardService.modArticle2(articleMap);
-		//수정 적용하기. 이미지 데이터만
-		boardService.addOnlyImage(articleMap,articleNO );
+		
 		
 		//
 		if(imageFileList!=null && imageFileList.size()!=0) {
+			// 기존 이미지를 삭제하는 부분 추가하고. 
+			
+			//수정 적용하기. 이미지 데이터만
+			boardService.addOnlyImage(articleMap,articleNO );
 			for(ImageVO  imageVO:imageFileList) {
 				imageFileName = imageVO.getImageFileName();
 				File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
@@ -449,6 +452,49 @@ public class BoardControllerImpl  implements BoardController{
 	}
 	return resEnt;
   }  
+  
+//이미지만 삭제하기. 
+ @Override
+ @RequestMapping(value="/board/deleteImage.do" ,method = RequestMethod.GET)
+ @ResponseBody
+ //
+ public ResponseEntity  deleteImage(@RequestParam("imageFileNO") int imageFileNO,
+		 @RequestParam("articleNO") int articleNO,
+		 @RequestParam("imageFileName") String imageFileName,
+                             HttpServletRequest request, HttpServletResponse response) throws Exception{
+	response.setContentType("text/html; charset=UTF-8");
+	
+	String message;
+	ResponseEntity resEnt=null;
+	HttpHeaders responseHeaders = new HttpHeaders();
+	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+	try {
+		// 파일 이미지만 삭제, 디비에서 
+		boardService.removeImage(imageFileNO);
+		// 미디어 서버 , 저장소에 저장된 파일을 삭제
+		
+		// 물리 저장소 삭제, 
+		File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO+"\\"+imageFileName);
+		FileUtils.deleteQuietly(destDir);
+//		FileUtils.deleteDirectory(destDir);
+		
+		message = "<script>";
+		message += " alert('삭제 완료.');";
+		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
+		message +=" </script>";
+	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+	       
+	}catch(Exception e) {
+		message = "<script>";
+		message += " alert('삭제 오류.');";
+		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
+		message +=" </script>";
+	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+	    e.printStackTrace();
+	}
+	return resEnt;
+ }  
+ 
   
 
   //다중이미지 글쓰기 , addMultiImageNewArticle

@@ -23,6 +23,10 @@ public interface BoardDAO {
 	// 다중 이미지 버전의 수정 적용하기. 일반 데이터만 변경.
 	public void updateArticle2(Map articleMap) throws DataAccessException;
 	public void deleteArticle(int articleNO) throws DataAccessException;
+	// 이미지만 디비에서 따로 삭제
+	public void deleteImage(int imageFileNO) throws DataAccessException;
+	
+	
 	public List selectImageFileList(int articleNO) throws DataAccessException;
 	
 }

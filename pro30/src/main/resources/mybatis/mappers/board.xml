@@ -90,6 +90,14 @@
          CONNECT BY PRIOR  articleNO = parentNO )
     ]]>      
   </delete>
+  
+  	<delete id="deleteImage"  parameterType="int">
+    <![CDATA[
+      delete from t_imageFile
+      where imageFileNO  = #{imageFileNO}
+         
+    ]]>      
+  </delete>
 
  <!--다중 이미지 추가 SQL문 -->   
 <!-- 일반 데이터를 디비에 저장 -->

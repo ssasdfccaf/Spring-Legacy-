@@ -115,6 +115,12 @@ public void addOnlyImage(Map articleMap, int articleVO) throws Exception{
 		boardDAO.deleteArticle(articleNO);
 	}
 	
+	// 이미지만 디비에서 삭제. 
+	@Override
+	public void removeImage(int imageFileNO) throws Exception {
+		
+		boardDAO.deleteImage(imageFileNO);
+	}
 
 	
 }

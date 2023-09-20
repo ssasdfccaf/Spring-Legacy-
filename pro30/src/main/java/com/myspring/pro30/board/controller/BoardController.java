@@ -30,5 +30,10 @@ public interface BoardController {
 	public ResponseEntity modArticle(@RequestParam("articleNO") int articleNO,MultipartHttpServletRequest multipartRequest,  HttpServletResponse response) throws Exception;
 	public ResponseEntity  removeArticle(@RequestParam("articleNO") int articleNO,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
+	// 수정시, 이미지만 따로 삭제하는 로직. 
+	public ResponseEntity  deleteImage(@RequestParam("imageFileNO") int imageFileNO,
+			@RequestParam("articleNO") int articleNO,
+			@RequestParam("imageFileName") String imageFileName,
+            HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }
