@@ -166,7 +166,7 @@ public class BoardControllerImpl  implements BoardController{
 		return resEnt;
 	}
 	
-	//글쓰기, 단일 이미지 업로드
+	//답글쓰기, 단일 이미지 업로드
 		@Override
 		@RequestMapping(value="/board/addReply.do" ,method = RequestMethod.POST)
 		// 전체 구조 : @Controller. 이미지 + 뷰 , 같이 전달하지만,
@@ -281,7 +281,7 @@ public class BoardControllerImpl  implements BoardController{
 			return resEnt;
 		}
 	
-	
+	/*
 	//상세 페이지 조회, 단일 이미지 버전. 
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	// @RequestParam, 
@@ -304,9 +304,9 @@ public class BoardControllerImpl  implements BoardController{
 		mav.addObject("article", articleVO);
 		return mav;
 	}
+	*/
 	
-	/*
-	//���� �̹��� �����ֱ�
+	//다중 이미지 뷰 보기 
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
 			  HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -317,7 +317,7 @@ public class BoardControllerImpl  implements BoardController{
 		mav.addObject("articleMap", articleMap);
 		return mav;
 	}
-   */
+   
 	
 
 	
@@ -420,16 +420,18 @@ public class BoardControllerImpl  implements BoardController{
 	return resEnt;
   }  
   
-/*
-  //���� �̹��� �� �߰��ϱ�
+
+  //다중이미지 글쓰기 , addMultiImageNewArticle
   @Override
-  @RequestMapping(value="/board/addNewArticle.do" ,method = RequestMethod.POST)
+  @RequestMapping(value="/board/addMultiImageNewArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity  addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+  public ResponseEntity  addMultiImageNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
 	multipartRequest.setCharacterEncoding("utf-8");
 	String imageFileName=null;
 	
+	// 일반 데이터 + 다중 이미지 포함할 박스.
 	Map articleMap = new HashMap();
+	// 일반데이터 , 가져와서, 박스에 담는 작업.
 	Enumeration enu=multipartRequest.getParameterNames();
 	while(enu.hasMoreElements()){
 		String name=(String)enu.nextElement();
@@ -437,14 +439,20 @@ public class BoardControllerImpl  implements BoardController{
 		articleMap.put(name,value);
 	}
 	
-	//�α��� �� ���ǿ� ����� ȸ�� �������� �۾��� ���̵� ���ͼ� Map�� �����մϴ�.
+	// 로그인 한 멤버 정보, 세션에서 가져오기.
 	HttpSession session = multipartRequest.getSession();
 	MemberVO memberVO = (MemberVO) session.getAttribute("member");
 	String id = memberVO.getId();
+	
+	// 박스에, 회원의 아이디 추가. 
 	articleMap.put("id",id);
 	
+	//멀티 이미지를 업로드 하는 메서드. 
+	// 여러 이미지의 이름을 담은 리스트가 반환. 
+	// 물리 저장소에 이미지를 업로드함. 
+	List<String> fileList =multiUpload(multipartRequest);
 	
-	List<String> fileList =upload(multipartRequest);
+	// 설명하기.
 	List<ImageVO> imageFileList = new ArrayList<ImageVO>();
 	if(fileList!= null && fileList.size()!=0) {
 		for(String fileName : fileList) {
@@ -471,7 +479,7 @@ public class BoardControllerImpl  implements BoardController{
 		}
 		    
 		message = "<script>";
-		message += " alert('������ �߰��߽��ϴ�.');";
+		message += " alert('글쓰기 성공.');";
 		message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -488,7 +496,7 @@ public class BoardControllerImpl  implements BoardController{
 
 		
 		message = " <script>";
-		message +=" alert('������ �߻��߽��ϴ�. �ٽ� �õ��� �ּ���');');";
+		message +=" alert('글쓰기 오류');');";
 		message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
 		message +=" </script>";
 		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -497,7 +505,7 @@ public class BoardControllerImpl  implements BoardController{
 	return resEnt;
   }
 	
-*/
+
 
 	
   // board/*Form.do ->글쓰기 폼, 
@@ -526,7 +534,7 @@ public class BoardControllerImpl  implements BoardController{
 		return mav;
 	}
 
-	//�Ѱ� �̹��� ���ε��ϱ�
+	//미디어 저장소, 이미지 파일 올리기. 단일이미지
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		String imageFileName= null;
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -548,27 +556,40 @@ public class BoardControllerImpl  implements BoardController{
 		return imageFileName;
 	}
 	
-	/*
-	//���� �̹��� ���ε��ϱ�
-	private List<String> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+	
+	//미디어 저장소, 이미지 파일 올리기. 다중이미지
+	private List<String> multiUpload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		// 여러 이미지 파일 이름을 담는 박스 
 		List<String> fileList= new ArrayList<String>();
+		// 멀티 파트에 담겨진 이미지 파일들을 가져오는 로직.
 		Iterator<String> fileNames = multipartRequest.getFileNames();
+		// 여러 이미지를 반복문을 이용해서, 원본 이름을 가져오고, 실제 물리 저장소 저장 
 		while(fileNames.hasNext()){
+			// file1 의 이름에 담겨진 , 파일 이미지 값을 조회
 			String fileName = fileNames.next();
+			// file1 작업 하기위한 인스턴스
 			MultipartFile mFile = multipartRequest.getFile(fileName);
+			// file1의 원본 이름을 가져오기.
 			String originalFileName=mFile.getOriginalFilename();
+			// file1 에 담겨진 원본 이름을 임시 박스에(fileList) 담기. 
 			fileList.add(originalFileName);
+			// 실제 물리 저장소에 저장될 이미지 파일. 
 			File file = new File(ARTICLE_IMAGE_REPO +"\\"+ fileName);
+			// 이미지 있다면(크기가 0이 아니면)
 			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //��λ� ������ �������� ���� ���
-					if(file.getParentFile().mkdirs()){ //��ο� �ش��ϴ� ���丮���� ����
-							file.createNewFile(); //���� ���� ����
+				// 파일 존재안하면
+				if(! file.exists()){ 
+					//  파일의 부모 폴더 만들고
+					if(file.getParentFile().mkdirs()){
+						// 해당 파일도 만들기. 
+							file.createNewFile(); 
 					}
 				}
+				// 임시 폴더 , temp에 저장후, 원래 경로로 이동할 예정. 
 				mFile.transferTo(new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
 			}
 		}
 		return fileList;
 	}
-	*/
+	
 }

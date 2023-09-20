@@ -73,6 +73,8 @@ function passwordConfirm(password){
 		<tr>
 			<td align="right">제목:&nbsp;  </td>
 			<td><input type="text" size="67"  maxlength="500" name="title" > </input></td>
+			<!-- 서버에, 부모의 게시글 번호를 전달하는 방식을 , 타입을 히든으로 숨겨서, 서버에게 전달
+			서버에서, public ResponseEntity replyNewArticle(@RequestParam("parentNO") int parentNO,MultipartHttpServletRequest multipartRequest, -->
 			<td><input type="hidden" size="67"  maxlength="500" name="parentNO" value="${parentNO}" > </input></td>
 		</tr>
 		<tr>

@@ -16,7 +16,11 @@ public interface BoardController {
 	
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest,HttpServletResponse response) throws Exception;
 	
+	// 다중 이미지 글 추가
+	public ResponseEntity addMultiImageNewArticle(MultipartHttpServletRequest multipartRequest,HttpServletResponse response) throws Exception;
+	
 //	public ResponseEntity replyNewArticle(MultipartHttpServletRequest multipartRequest,HttpServletResponse response) throws Exception;
+	//단일 이미지 답글 추가
 	public ResponseEntity replyNewArticle(@RequestParam("parentNO") int parentNO,MultipartHttpServletRequest multipartRequest,HttpServletResponse response) throws Exception;
 	
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,

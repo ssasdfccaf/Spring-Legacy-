@@ -13,7 +13,8 @@ public interface BoardDAO {
 	//답글 작성하기.
 	public int insertReplyNewArticle(Map articleMap) throws DataAccessException;
 	public int insertNewArticle(Map articleMap) throws DataAccessException;
-	//public void insertNewImage(Map articleMap) throws DataAccessException;
+	// 다중이미지 글쓰기
+	public void insertNewImage(Map articleMap) throws DataAccessException;
 	
 	public ArticleVO selectArticle(int articleNO) throws DataAccessException;
 	public void updateArticle(Map articleMap) throws DataAccessException;
