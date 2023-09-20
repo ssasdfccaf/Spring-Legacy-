@@ -378,7 +378,7 @@ public class BoardControllerImpl  implements BoardController{
 			// 기존 이미지를 삭제하는 부분 추가하고. 
 			
 			//수정 적용하기. 이미지 데이터만
-			boardService.addOnlyImage(articleMap,articleNO );
+			boardService.addOnlyImage(articleMap);
 			for(ImageVO  imageVO:imageFileList) {
 				imageFileName = imageVO.getImageFileName();
 				File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
@@ -610,7 +610,77 @@ public class BoardControllerImpl  implements BoardController{
 	return resEnt;
   }
 	
+//다중이미지만 업로드. onlyImageUpload
+  @Override
+  @RequestMapping(value="/board/onlyImageUpload.do" ,method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity  onlyImageUpload(@RequestParam("articleNO") int articleNO,
+		  MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+	multipartRequest.setCharacterEncoding("utf-8");
+	String imageFileName=null;
+	
+	// 일반 데이터 + 다중 이미지 포함할 박스.
+	Map articleMap = new HashMap();
+	
+	List<String> fileList =multiUpload(multipartRequest);
+	
+	List<ImageVO> imageFileList = new ArrayList<ImageVO>();
 
+	if(fileList!= null && fileList.size()!=0) {
+		for(String fileName : fileList) {
+			ImageVO imageVO = new ImageVO();
+			imageVO.setImageFileName(fileName);
+			imageFileList.add(imageVO);
+		}
+		articleMap.put("imageFileList", imageFileList);
+	}
+	
+	String message;
+	ResponseEntity resEnt=null;
+	HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+	try {
+		// 실제 작업. 기존 게시글에 이미지만 추가,
+		boardService.addOnlyImage2(articleMap,articleNO);
+		
+		//
+		if(imageFileList!=null && imageFileList.size()!=0) {
+			for(ImageVO  imageVO:imageFileList) {
+				imageFileName = imageVO.getImageFileName();
+				File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+				File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+				//destDir.mkdirs();
+				FileUtils.moveFileToDirectory(srcFile, destDir,true);
+			}
+		}
+		    
+		message = "<script>";
+		message += " alert('사진업로드 성공.');";
+		message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
+		message +=" </script>";
+	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+	    
+		 
+	}catch(Exception e) {
+		if(imageFileList!=null && imageFileList.size()!=0) {
+		  for(ImageVO  imageVO:imageFileList) {
+		  	imageFileName = imageVO.getImageFileName();
+			File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+		 	srcFile.delete();
+		  }
+		}
+
+		
+		message = " <script>";
+		message +=" alert('글쓰기 오류');');";
+		message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
+		message +=" </script>";
+		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		e.printStackTrace();
+	}
+	return resEnt;
+  }
+	
 
 	
   // board/*Form.do ->글쓰기 폼, 

@@ -156,13 +156,15 @@
  </form>
  
  <!-- 이미지 파일 추가 부분 분리 -->
- <form name="imageOnlyUpload" method="post"  action="${contextPath}/board/onlyImageUpload.do"  enctype="multipart/form-data">
+ <form name="onlyImageUpload" method="post"  action="${contextPath}/board/onlyImageUpload.do"  enctype="multipart/form-data">
  <table  border=0  align="center">
   <tr>
   <td align="center"> <input type="submit" value="사진올리기" /></td>
 			  <td align="right">이미지파일 첨부:  </td>
+			   <input type="hidden" name="articleNO" value="${article.articleNO}"  />
 			  <!-- 추가3 -->
 			  <td align="left"> <input type="button" value="파일 추가" onClick="fn_addFile()"/></td>
+			  
 			  <!-- <td> <input type="file" name="imageFileName"  onchange="readURL(this);" /></td> -->
 			  <!-- <td><img  id="preview" src="#"   width=200 height=200/></td> -->
 			  
