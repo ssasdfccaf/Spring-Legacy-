@@ -156,8 +156,10 @@
  </form>
  
  <!-- 이미지 파일 추가 부분 분리 -->
+ <form name="imageOnlyUpload" method="post"  action="${contextPath}/board/onlyImageUpload.do"  enctype="multipart/form-data">
  <table  border=0  align="center">
   <tr>
+  <td align="center"> <input type="submit" value="사진올리기" /></td>
 			  <td align="right">이미지파일 첨부:  </td>
 			  <!-- 추가3 -->
 			  <td align="left"> <input type="button" value="파일 추가" onClick="fn_addFile()"/></td>
@@ -173,6 +175,7 @@
 	       <td colspan="4"><div id="previews"></div></td>
 	   </tr>
   </table>
- 
+  </form>
+  
 </body>
 </html>

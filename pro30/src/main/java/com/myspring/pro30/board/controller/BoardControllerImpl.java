@@ -480,7 +480,7 @@ public class BoardControllerImpl  implements BoardController{
 		
 		message = "<script>";
 		message += " alert('삭제 완료.');";
-		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
+		message += " location.href='"+request.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 	       
