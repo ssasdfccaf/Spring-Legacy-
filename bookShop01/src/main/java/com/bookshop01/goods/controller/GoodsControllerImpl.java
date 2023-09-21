@@ -79,7 +79,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		quickGoodsList=(ArrayList<GoodsVO>)session.getAttribute("quickGoodsList");
 		
 		if(quickGoodsList!=null){
-			if(quickGoodsList.size() < 4){ //미리본 상품 리스트에 상품개수가 세개 이하인 경우
+			if(quickGoodsList.size() < 10){ //미리본 상품 리스트에 상품개수가 세개 이하인 경우
 				for(int i=0; i<quickGoodsList.size();i++){
 					GoodsVO _goodsBean=(GoodsVO)quickGoodsList.get(i);
 					if(goods_id.equals(_goodsBean.getGoods_id())){
@@ -91,6 +91,15 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 					quickGoodsList.add(goodsVO);
 				}
 			}
+			// 세션 기반, 장점) 간단히 구현, 단점) 서버의 자원을 많이사용한다.
+			// 최근 본 상품의 갯수 부분, 4개라고 가정하고,
+			// 4개 이후로 부터는, 먼저 들어간 자료는 목록에서 제거하고
+			// 
+			// 새로본 상품을 추가하는 방법. 예) 큐방식. 
+			// 2번째 방법, 디비에 따로 저장. 
+			// A: 회원 테이블(1) - B: 최근 본 상품 테이블(N)
+			// 예) B 필드 , 본 상품의 조회수, 검색 키워드,
+			// 회원 로그인했어, 알고리즘 추천 상품 , 
 			
 		}else{
 			quickGoodsList =new ArrayList<GoodsVO>();
